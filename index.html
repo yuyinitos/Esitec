@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Esitec – Software Development & Online Diensten</title>
+  <meta name="description" content="Esitec is de eenmanszaak van Eugène Spaan. Freelance full-stack softwareontwikkeling en online diensten zoals TafelTour.">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0d0e4a;
+      --red:    #e8302a;
+      --light:  #f5f6fa;
+      --white:  #ffffff;
+      --text:   #2c2c3e;
+      --muted:  #6b6b8a;
+      --border: #e0e0ee;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    /* ── NAVIGATION ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 64px;
+      box-shadow: 0 2px 12px rgba(13,14,74,.4);
+    }
+
+    nav .logo img { height: 36px; filter: brightness(0) invert(1); }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav ul a {
+      color: rgba(255,255,255,.85);
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 500;
+      letter-spacing: .02em;
+      transition: color .2s;
+    }
+
+    nav ul a:hover { color: var(--white); }
+
+    nav .cta-btn {
+      background: var(--red);
+      color: var(--white) !important;
+      padding: .45rem 1.1rem;
+      border-radius: 6px;
+      font-weight: 600 !important;
+    }
+
+    nav .cta-btn:hover { background: #c8251f; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #1a1b6e 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 5rem 2rem 4rem;
+    }
+
+    .hero img.hero-logo {
+      height: 70px;
+      margin-bottom: 2rem;
+      filter: brightness(0) invert(1);
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 span { color: var(--red); }
+
+    .hero p.tagline {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,.8);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-block;
+      padding: .75rem 1.75rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: .95rem;
+      text-decoration: none;
+      transition: transform .15s, box-shadow .15s;
+    }
+
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.2); }
+
+    .btn-primary { background: #f5891e; color: var(--white); }
+    .btn-primary:hover { background: #d97310; }
+    .btn-outline  { border: 2px solid rgba(255,255,255,.7); color: var(--white); }
+    .btn-outline:hover { background: rgba(255,255,255,.1); }
+
+    /* ── SECTIONS ── */
+    section { padding: 4rem 2rem; }
+    .section-inner { max-width: 1000px; margin: 0 auto; }
+
+    .section-label {
+      display: inline-block;
+      background: rgba(232,48,42,.1);
+      color: var(--red);
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: .25rem .75rem;
+      border-radius: 20px;
+      margin-bottom: .75rem;
+    }
+
+    h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--navy);
+      margin-bottom: 1rem;
+    }
+
+    .lead {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 700px;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── ABOUT ── */
+    #over { background: var(--light); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    @media (max-width: 680px) { .about-grid { grid-template-columns: 1fr; } }
+
+    .about-text p { margin-bottom: 1rem; color: var(--text); }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-top: 1rem;
+    }
+
+    .skill-tag {
+      background: var(--navy);
+      color: var(--white);
+      font-size: .78rem;
+      font-weight: 600;
+      padding: .3rem .75rem;
+      border-radius: 20px;
+    }
+
+    .info-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .info-card h3 {
+      color: var(--navy);
+      font-size: 1rem;
+      margin-bottom: .75rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .info-card ul { list-style: none; }
+
+    .info-card ul li {
+      padding: .4rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .9rem;
+      color: var(--text);
+    }
+
+    .info-card ul li:last-child { border-bottom: none; }
+
+    .info-card ul li strong { color: var(--navy); }
+
+    /* ── SERVICES ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      transition: box-shadow .2s, transform .2s;
+    }
+
+    .service-card:hover {
+      box-shadow: 0 8px 30px rgba(13,14,74,.1);
+      transform: translateY(-3px);
+    }
+
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(13,14,74,.08);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .service-card h3 { color: var(--navy); margin-bottom: .5rem; font-size: 1rem; }
+    .service-card p  { font-size: .9rem; color: var(--muted); }
+
+    /* ── TAFELTOUR ── */
+    #tafeltour {
+      background: #111118;
+      color: var(--white);
+      padding-bottom: 5rem;
+    }
+
+    .tt-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .tt-logo {
+      height: 220px;
+      margin-bottom: 1rem;
+    }
+
+    .tt-tagline {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,.65);
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    /* Steps */
+    .tt-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+      position: relative;
+    }
+
+    .tt-steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: calc(16.66% + 1rem);
+      right: calc(16.66% + 1rem);
+      height: 2px;
+      background: linear-gradient(90deg, #f5891e 0%, #f5891e 100%);
+      opacity: .3;
+    }
+
+    @media (max-width: 660px) {
+      .tt-steps { grid-template-columns: 1fr; }
+      .tt-steps::before { display: none; }
+    }
+
+    .tt-step {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px;
+      padding: 1.75rem 1.5rem;
+      text-align: center;
+    }
+
+    .tt-step-num {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #f5891e;
+      color: var(--white);
+      font-size: 1.2rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+    }
+
+    .tt-step h3 { color: #f5891e; font-size: .95rem; margin-bottom: .5rem; }
+    .tt-step p  { font-size: .88rem; color: rgba(255,255,255,.65); }
+
+    /* Info + payment grid */
+    .tafeltour-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    @media (max-width: 700px) { .tafeltour-grid { grid-template-columns: 1fr; } }
+
+    .tafeltour-info p {
+      color: rgba(255,255,255,.75);
+      margin-bottom: 1rem;
+      font-size: .95rem;
+    }
+
+    .tafeltour-info ul {
+      list-style: none;
+      margin: 0 0 1.5rem;
+    }
+
+    .tafeltour-info ul li {
+      padding: .45rem 0;
+      color: rgba(255,255,255,.85);
+      font-size: .9rem;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+
+    .tafeltour-info ul li:last-child { border-bottom: none; }
+
+    .tafeltour-info ul li::before {
+      content: '✓ ';
+      color: #f5891e;
+      font-weight: 700;
+    }
+
+    .tt-for-org {
+      background: rgba(245,137,30,.1);
+      border: 1px solid rgba(245,137,30,.25);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-top: 1.25rem;
+      font-size: .85rem;
+      color: rgba(255,255,255,.7);
+    }
+
+    .tt-for-org strong { color: #f5891e; display: block; margin-bottom: .35rem; }
+
+    /* Payment card */
+    .payment-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 2rem;
+      color: var(--text);
+    }
+
+    .payment-card h3 {
+      color: var(--navy);
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .price-option {
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1rem;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .price-option.selected,
+    .price-option:hover {
+      border-color: #f5891e;
+      background: rgba(245,137,30,.05);
+    }
+
+    .price-option .price-label { font-size: .9rem; color: var(--text); }
+    .price-option .price-label strong { display: block; color: var(--navy); }
+    .price-option .price-label .badge {
+      display: inline-block;
+      background: #f5891e;
+      color: white;
+      font-size: .68rem;
+      font-weight: 700;
+      padding: .1rem .5rem;
+      border-radius: 20px;
+      margin-left: .35rem;
+      vertical-align: middle;
+    }
+    .price-option .price-amount { font-size: 1.1rem; font-weight: 700; color: var(--navy); }
+    .price-option .price-sub { font-size: .72rem; color: var(--muted); text-align: right; }
+
+    .pay-btn {
+      width: 100%;
+      padding: .9rem;
+      background: #f5891e;
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: .5rem;
+      transition: background .2s, transform .15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+    }
+
+    .pay-btn:hover { background: #d97310; transform: translateY(-1px); }
+
+    .mollie-note {
+      text-align: center;
+      font-size: .75rem;
+      color: var(--muted);
+      margin-top: .75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .4rem;
+    }
+
+    /* ── EXPERIENCE ── */
+    #ervaring { background: var(--light); }
+
+    .timeline { position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 11px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 2.5rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 6px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--red);
+      border: 2px solid var(--white);
+      box-shadow: 0 0 0 2px var(--red);
+    }
+
+    .timeline-item h3 { color: var(--navy); font-size: .95rem; margin-bottom: .2rem; }
+    .timeline-item .period { font-size: .8rem; color: var(--red); font-weight: 600; margin-bottom: .4rem; }
+    .timeline-item p { font-size: .88rem; color: var(--muted); }
+
+    /* ── CONTACT ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    @media (max-width: 640px) { .contact-grid { grid-template-columns: 1fr; } }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--light);
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--text);
+      transition: box-shadow .2s;
+      margin-bottom: 1rem;
+    }
+
+    .contact-item:hover { box-shadow: 0 4px 15px rgba(13,14,74,.1); }
+
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--navy);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-item strong { display: block; color: var(--navy); font-size: .85rem; }
+    .contact-item span { font-size: .9rem; color: var(--text); }
+
+    .kvk-info {
+      background: var(--light);
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+
+    .kvk-info h3 { color: var(--navy); margin-bottom: 1rem; font-size: .95rem; }
+    .kvk-info dl { display: grid; grid-template-columns: auto 1fr; gap: .35rem 1rem; }
+    .kvk-info dt { font-size: .85rem; color: var(--muted); }
+    .kvk-info dd { font-size: .85rem; color: var(--text); font-weight: 500; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,.65);
+      text-align: center;
+      padding: 2rem;
+      font-size: .85rem;
+    }
+
+    footer a { color: var(--red); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    footer .footer-logo img {
+      height: 28px;
+      filter: brightness(0) invert(1) opacity(.7);
+      margin-bottom: .75rem;
+    }
+
+    /* ── UTILS ── */
+    @media (max-width: 700px) {
+      nav ul { display: none; }
+      section { padding: 3rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="logo">
+    <a href="#top"><img src="logo.png" alt="Esitec"></a>
+  </div>
+  <ul>
+    <li><a href="#over">Over</a></li>
+    <li><a href="#diensten">Diensten</a></li>
+    <li><a href="#tafeltour">TafelTour</a></li>
+    <li><a href="#ervaring">Ervaring</a></li>
+    <li><a href="#contact" class="cta-btn">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <img src="logo.png" alt="Esitec" class="hero-logo">
+  <h1>Software Development &amp; <span>Online Diensten</span></h1>
+  <p class="tagline">
+    Praktische, doelgerichte oplossingen voor web, mobiel en cloud –
+    als zelfstandig ontwikkelaar met meer dan 30 jaar ervaring.
+  </p>
+  <div class="hero-btns">
+    <a href="#tafeltour" class="btn btn-primary">Bekijk TafelTour</a>
+    <a href="#contact" class="btn btn-outline">Neem contact op</a>
+  </div>
+</header>
+
+<!-- OVER -->
+<section id="over">
+  <div class="section-inner">
+    <div class="section-label">Over Esitec</div>
+    <h2>Eugène Spaan – Freelance Developer</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          Esitec is de eenmanszaak van Eugène Spaan, gevestigd in Nijmegen.
+          Als praktisch system-analist en full-stack softwareontwikkelaar lever ik
+          maatwerk software en online diensten voor uiteenlopende opdrachtgevers.
+        </p>
+        <p>
+          Met een achtergrond in zowel frontend als backend ontwikkeling combineer ik
+          technische diepgang met heldere communicatie. Ik werk zelfstandig maar ben
+          ook een sterke teamspeler in Agile/Scrum omgevingen.
+        </p>
+        <p>
+          Naast freelance opdrachten ontwikkel ik eigen SaaS-producten,
+          waaronder <strong>TafelTour</strong>.
+        </p>
+        <div class="skills-list">
+          <span class="skill-tag">Angular</span>
+          <span class="skill-tag">TypeScript</span>
+          <span class="skill-tag">Node.js</span>
+          <span class="skill-tag">Firebase</span>
+          <span class="skill-tag">AWS</span>
+          <span class="skill-tag">RxJS / NgRx</span>
+          <span class="skill-tag">C#.NET</span>
+          <span class="skill-tag">Laravel / PHP</span>
+          <span class="skill-tag">Docker</span>
+          <span class="skill-tag">REST API</span>
+          <span class="skill-tag">SQL / NoSQL</span>
+        </div>
+      </div>
+      <div>
+        <div class="info-card">
+          <h3>🏢 Bedrijfsgegevens</h3>
+          <ul>
+            <li><strong>Naam</strong> Esitec</li>
+            <li><strong>Eigenaar</strong> Eugène Spaan</li>
+            <li><strong>Type</strong> Eenmanszaak</li>
+            <li><strong>Vestiging</strong> Nijmegen, Nederland</li>
+            <li><strong>Opgericht</strong> 1994</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIENSTEN -->
+<section id="diensten">
+  <div class="section-inner">
+    <div class="section-label">Diensten</div>
+    <h2>Wat ik aanbied</h2>
+    <p class="lead">
+      Van concept tot livegang: ik begeleid en bouw volledige digitale producten,
+      zowel als freelancer voor opdrachtgevers als met eigen producten.
+    </p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🖥️</div>
+        <h3>Frontend Development</h3>
+        <p>Moderne webapplicaties met Angular, TypeScript, RxJS en NgRx.
+           Responsive, toegankelijk en performant.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">⚙️</div>
+        <h3>Backend Development</h3>
+        <p>Schaalbare API's en serverless architecturen in Node.js,
+           Laravel/PHP en C#.NET, met SQL en NoSQL databases.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">☁️</div>
+        <h3>Cloud & Infra</h3>
+        <p>Implementatie en beheer op AWS, Firebase, Azure en Digital Ocean,
+           inclusief CI/CD-pipelines en Docker.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📱</div>
+        <h3>Mobiele Apps</h3>
+        <p>Cross-platform apps voor iOS en Android via Ionic/Capacitor,
+           beschikbaar in de App Store en Google Play.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔌</div>
+        <h3>Systeemintegraties</h3>
+        <p>Koppelingen tussen systemen via REST, SOAP en ETL-platformen
+           zoals Celigo. Ervaring met ERP/CRM-trajecten.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💳</div>
+        <h3>Betaalintegraties</h3>
+        <p>Implementatie van online betalingen via Mollie, Pay.nl en
+           andere PSP's voor webshops en SaaS-producten.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAFELTOUR -->
+<section id="tafeltour">
+  <div class="section-inner">
+
+    <!-- Logo + tagline -->
+    <div class="tt-header">
+      <img src="tafel-tour-logo-footer.gif" alt="TafelTour – Running Diner Experience" class="tt-logo">
+      <p class="tt-tagline">
+        Een avond vol nieuwe mensen, onverwachte ontmoetingen en heerlijk eten –
+        elke gang bij een andere gastheer.
+      </p>
+    </div>
+
+    <!-- Hoe het werkt -->
+    <div class="tt-steps">
+      <div class="tt-step">
+        <div class="tt-step-num">1</div>
+        <h3>Aanmelden &amp; voorkeuren</h3>
+        <p>Geef je dieetwensen op en geef aan of je een gang kunt organiseren bij jou thuis.</p>
+      </div>
+      <div class="tt-step">
+        <div class="tt-step-num">2</div>
+        <h3>Slimme koppeling</h3>
+        <p>Ons matchingsalgoritme bepaalt jouw route: voorgerecht, hoofdgerecht en nagerecht – elk bij een andere gastheer.</p>
+      </div>
+      <div class="tt-step">
+        <div class="tt-step-num">3</div>
+        <h3>Volg je live route</h3>
+        <p>Check in bij elke gang via de app, ontvang real-time updates en ontmoet elke ronde nieuwe tafelgenoten.</p>
+      </div>
+    </div>
+
+    <!-- Features + betaling -->
+    <div class="tafeltour-grid">
+      <div class="tafeltour-info">
+        <p>
+          TafelTour is een platform voor het organiseren van Running Dinner evenementen –
+          ontwikkeld door Esitec. Deelnemers eten elke gang op een ander adres en leren
+          zo op een laagdrempelige manier nieuwe mensen kennen.
+        </p>
+        <ul>
+          <li>Slim matchingsalgoritme voor optimale routes</li>
+          <li>Beheer van dieetwensen en hostcapaciteit</li>
+          <li>Live route-app voor deelnemers</li>
+          <li>Real-time check-ins per gang</li>
+          <li>Admin dashboard voor organisatoren</li>
+          <li>Automatische e-mailbevestigingen</li>
+          <li>Veilig betalen via Mollie (iDEAL &amp; meer)</li>
+        </ul>
+
+        <div class="tt-for-org">
+          <strong>Voor organisatoren</strong>
+          Organiseer je een Running Dinner voor jouw vereniging, bedrijf of buurt?
+          TafelTour regelt de volledige logistiek digitaal —
+          van aanmelding tot routepublicatie.
+          <br><br>
+          <a href="mailto:eugene@esitec.nl" style="color:#f5891e; font-weight:600;">
+            Neem contact op voor een demo →
+          </a>
+        </div>
+      </div>
+
+      <!-- Betaalkaart -->
+      <div class="payment-card">
+        <h3>🎟️ Meld je aan voor een event</h3>
+
+        <div class="price-option selected" onclick="selectOption(this)">
+          <div>
+            <div class="price-label">
+              <strong>Deelname per event</strong>
+              Eenmalige registratie voor 1 Running Dinner
+            </div>
+          </div>
+          <div>
+            <div class="price-amount">€ 12,50</div>
+            <div class="price-sub">per persoon</div>
+          </div>
+        </div>
+
+        <div class="price-option" onclick="selectOption(this)">
+          <div>
+            <div class="price-label">
+              <strong>Organisatiepakket — Klein</strong>
+              Tot 30 deelnemers, volledig platform
+            </div>
+          </div>
+          <div>
+            <div class="price-amount">€ 29,99</div>
+            <div class="price-sub">per event</div>
+          </div>
+        </div>
+
+        <div class="price-option" onclick="selectOption(this)">
+          <div>
+            <div class="price-label">
+              <strong>Organisatiepakket — Groot</strong>
+              <span class="badge">Populair</span>
+              Tot 100 deelnemers, inclusief support
+            </div>
+          </div>
+          <div>
+            <div class="price-amount">€ 79,99</div>
+            <div class="price-sub">per event</div>
+          </div>
+        </div>
+
+        <button class="pay-btn" onclick="startPayment()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+            <line x1="1" y1="10" x2="23" y2="10"></line>
+          </svg>
+          Nu veilig betalen
+        </button>
+
+        <p class="mollie-note">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          Beveiligd betalen via Mollie · iDEAL · Creditcard · Bancontact
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ERVARING -->
+<section id="ervaring">
+  <div class="section-inner">
+    <div class="section-label">Achtergrond</div>
+    <h2>Werkervaring</h2>
+    <p class="lead">Een selectie van recente en relevante opdrachten.</p>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <h3>Freelance Frontend Developer – Kinetiq</h3>
+        <div class="period">Mei 2024 – heden</div>
+        <p>Nieuw tagging-systeem ontwikkeld voor Red Bull. Angular 19, RxJS, TypeScript, C#.NET.</p>
+      </div>
+
+      <div class="timeline-item">
+        <h3>Freelance Full Stack Developer – Sadhaka</h3>
+        <div class="period">Jan – Mei 2024</div>
+        <p>Boekingssysteem voor events: inschrijvingen, betalingen (Pay.nl), Firebase, Angular 17.</p>
+      </div>
+
+      <div class="timeline-item">
+        <h3>Freelance Full Stack Developer – Databrydge / ANWR-Garant</h3>
+        <div class="period">2021 – 2024 (3+ jaar)</div>
+        <p>Intern orderproces-platform voor 150+ webshops. Angular 17, NgRx, Node.js 18, AWS, MySQL.</p>
+      </div>
+
+      <div class="timeline-item">
+        <h3>Freelance Developer – Rsult</h3>
+        <div class="period">2022 – 2023</div>
+        <p>Oracle NetSuite-integraties via Celigo ETL. TypeScript, REST, SOAP.</p>
+      </div>
+
+      <div class="timeline-item">
+        <h3>Owner / Developer – Consumedia bv</h3>
+        <div class="period">2008 – 2021 (13 jaar)</div>
+        <p>Diverse web- en mobieleapplicaties voor klanten als Coop Supermarkten en Rijkswaterstaat.</p>
+      </div>
+
+      <div class="timeline-item">
+        <h3>System Engineer – Canon Nederland</h3>
+        <div class="period">2008 – 2019</div>
+        <p>Implementatie van web-to-print oplossingen, systeemintegraties, projectmanagement. C#.NET, Azure.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div>
+        <div class="section-label">Contact</div>
+        <h2>Neem contact op</h2>
+        <p class="lead">
+          Interesse in samenwerking, een opdracht of een vraag over TafelTour?
+          Ik reageer doorgaans binnen één werkdag.
+        </p>
+
+        <a class="contact-item" href="mailto:eugene@esitec.nl">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <strong>E-mail</strong>
+            <span>info@esitec.nl</span>
+          </div>
+        </a>
+
+      </div>
+
+      <div>
+        <div class="kvk-info">
+          <h3>📋 Zakelijke informatie</h3>
+          <dl>
+            <dt>Handelsnaam</dt>
+            <dd>Esitec</dd>
+            <dt>Eigenaar</dt>
+            <dd>Eugène Spaan</dd>
+            <dt>Rechtsvorm</dt>
+            <dd>Eenmanszaak</dd>
+            <dt>Vestigingsplaats</dt>
+            <dd>Nijmegen</dd>
+            <dt>Land</dt>
+            <dd>Nederland</dd>
+          </dl>
+          <p>&nbsp;</p>
+          <p style="font-size:.78rem; color:var(--muted); margin-top:1rem;">
+            KvK-nummer: 84734485 - Btw-nummer: NL004008604B41.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="logo.png" alt="Esitec">
+  </div>
+  <p>
+    &copy; 2025 Esitec – Eugène Spaan &nbsp;·&nbsp;
+    Nijmegen, Nederland &nbsp;·&nbsp;
+    <a href="mailto:eugene@esitec.nl">eugene@esitec.nl</a>
+  </p>
+  <p style="margin-top:.5rem; font-size:.78rem;">
+    <a href="#privacy">Privacybeleid</a> &nbsp;·&nbsp;
+    <a href="#voorwaarden">Algemene voorwaarden</a>
+  </p>
+</footer>
+
+<script>
+  function selectOption(el) {
+    document.querySelectorAll('.price-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function startPayment() {
+    const selected = document.querySelector('.price-option.selected');
+    const label = selected.querySelector('.price-label strong').textContent;
+    const amount = selected.querySelector('.price-amount').textContent.trim();
+    // TODO: vervang door Mollie checkout URL of server-side API-aanroep
+    // Voorbeeld: window.location.href = '/api/tafeltour/checkout?plan=deelname';
+    alert(`Betaling starten voor:\n${label} – ${amount}\n\n(Koppel hier je Mollie checkout URL)`);
+  }
+</script>
+
+</body>
+</html>
