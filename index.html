@@ -743,7 +743,7 @@
           TafelTour regelt de volledige logistiek digitaal —
           van aanmelding tot routepublicatie.
           <br><br>
-          <a href="mailto:eugene@esitec.nl" style="color:#f5891e; font-weight:600;">
+          <a href="#" class="email-link" data-user="info" data-domain="esitec.nl" style="color:#f5891e; font-weight:600;">
             Neem contact op voor een demo →
           </a>
         </div>
@@ -874,11 +874,11 @@
           Ik reageer doorgaans binnen één werkdag.
         </p>
 
-        <a class="contact-item" href="mailto:eugene@esitec.nl">
+        <a class="contact-item email-link" href="#" data-user="info" data-domain="esitec.nl">
           <div class="contact-icon">✉️</div>
           <div>
             <strong>E-mail</strong>
-            <span>info@esitec.nl</span>
+            <span>info&#64;esitec&#46;nl</span>
           </div>
         </a>
 
@@ -917,7 +917,7 @@
   <p>
     &copy; 2025 Esitec – Eugène Spaan &nbsp;·&nbsp;
     Nijmegen, Nederland &nbsp;·&nbsp;
-    <a href="mailto:eugene@esitec.nl">eugene@esitec.nl</a>
+    <a href="#" class="email-link" data-user="info" data-domain="esitec.nl">info&#64;esitec&#46;nl</a>
   </p>
   <p style="margin-top:.5rem; font-size:.78rem;">
     <a href="#privacy">Privacybeleid</a> &nbsp;·&nbsp;
@@ -939,6 +939,12 @@
     // Voorbeeld: window.location.href = '/api/tafeltour/checkout?plan=deelname';
     alert(`Betaling starten voor:\n${label} – ${amount}\n\n(Koppel hier je Mollie checkout URL)`);
   }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.email-link').forEach(function (el) {
+      el.href = 'mailto:' + el.dataset.user + '@' + el.dataset.domain;
+    });
+  });
 </script>
 
 </body>
