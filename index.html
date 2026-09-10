@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Esitec – Software Development & Online Diensten</title>
-  <meta name="description" content="Esitec is de eenmanszaak van Eugène Spaan. Freelance full-stack softwareontwikkeling en online diensten zoals TafelTour.">
+  <meta name="description" content="Esitec is de eenmanszaak van Eugène Spaan: senior full-stack developer (TypeScript, Angular, Node.js, cloud &amp; AI) en maker van TafelTour, het platform voor Running Dinners.">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -207,6 +207,8 @@
 
     .info-card ul li strong { color: var(--navy); }
 
+    .info-card + .info-card { margin-top: 1.5rem; }
+
     /* ── SERVICES ── */
     .services-grid {
       display: grid;
@@ -275,12 +277,14 @@
       position: relative;
     }
 
+    /* Lijn door de middelpunten van de bollen: border (1px) + padding (1.75rem)
+       + halve bol (24px) − halve lijndikte (1px); kolommidden = (100% − 2 gaps) / 6 */
     .tt-steps::before {
       content: '';
       position: absolute;
-      top: 28px;
-      left: calc(16.66% + 1rem);
-      right: calc(16.66% + 1rem);
+      top: calc(1.75rem + 24px);
+      left: calc((100% - 3rem) / 6);
+      right: calc((100% - 3rem) / 6);
       height: 2px;
       background: linear-gradient(90deg, #f5891e 0%, #f5891e 100%);
       opacity: .3;
@@ -311,6 +315,8 @@
       align-items: center;
       justify-content: center;
       margin: 0 auto 1rem;
+      position: relative;
+      z-index: 1;
     }
 
     .tt-step h3 { color: #f5891e; font-size: .95rem; margin-bottom: .5rem; }
@@ -363,6 +369,7 @@
     }
 
     .tt-for-org strong { color: #f5891e; display: block; margin-bottom: .35rem; }
+    .tt-for-org a { color: #f5891e; font-weight: 600; }
 
     /* Payment card */
     .payment-card {
@@ -375,7 +382,13 @@
     .payment-card h3 {
       color: var(--navy);
       font-size: 1.1rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: .5rem;
+    }
+
+    .price-intro {
+      font-size: .88rem;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
     }
 
     .price-option {
@@ -383,15 +396,13 @@
       border-radius: 10px;
       padding: 1rem 1.25rem;
       margin-bottom: 1rem;
-      cursor: pointer;
-      transition: border-color .2s, background .2s;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 1rem;
     }
 
-    .price-option.selected,
-    .price-option:hover {
+    .price-option.featured {
       border-color: #f5891e;
       background: rgba(245,137,30,.05);
     }
@@ -409,8 +420,15 @@
       margin-left: .35rem;
       vertical-align: middle;
     }
-    .price-option .price-amount { font-size: 1.1rem; font-weight: 700; color: var(--navy); }
-    .price-option .price-sub { font-size: .72rem; color: var(--muted); text-align: right; }
+    .price-option .price-label .badge.soon { background: var(--muted); }
+    .price-option .price-amount { font-size: 1.1rem; font-weight: 700; color: var(--navy); text-align: right; white-space: nowrap; }
+    .price-option .price-sub { font-size: .72rem; color: var(--muted); text-align: right; white-space: nowrap; }
+
+    .price-footnote {
+      font-size: .78rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
 
     .pay-btn {
       width: 100%;
@@ -421,6 +439,7 @@
       border-radius: 8px;
       font-size: 1rem;
       font-weight: 700;
+      text-decoration: none;
       cursor: pointer;
       margin-top: .5rem;
       transition: background .2s, transform .15s;
@@ -577,8 +596,8 @@
   <img src="logo.png" alt="Esitec" class="hero-logo">
   <h1>Software Development &amp; <span>Online Diensten</span></h1>
   <p class="tagline">
-    Praktische, doelgerichte oplossingen voor web, mobiel en cloud –
-    als zelfstandig ontwikkelaar met meer dan 30 jaar ervaring.
+    Maatwerk webapplicaties, integraties en AI-oplossingen voor web en cloud –
+    als senior full-stack developer met ruim 20 jaar ervaring.
   </p>
   <div class="hero-btns">
     <a href="#tafeltour" class="btn btn-primary">Bekijk TafelTour</a>
@@ -590,35 +609,39 @@
 <section id="over">
   <div class="section-inner">
     <div class="section-label">Over Esitec</div>
-    <h2>Eugène Spaan – Freelance Developer</h2>
+    <h2>Eugène Spaan – Senior Full Stack Developer</h2>
     <div class="about-grid">
       <div class="about-text">
         <p>
           Esitec is de eenmanszaak van Eugène Spaan, gevestigd in Nijmegen.
-          Als praktisch system-analist en full-stack softwareontwikkelaar lever ik
-          maatwerk software en online diensten voor uiteenlopende opdrachtgevers.
+          Als senior full-stack developer met ruim 20 jaar ervaring bouw en integreer ik
+          bedrijfskritische webapplicaties met TypeScript, Angular, Node.js en React/Next.js –
+          op AWS, Azure en Firebase.
         </p>
         <p>
-          Met een achtergrond in zowel frontend als backend ontwikkeling combineer ik
-          technische diepgang met heldere communicatie. Ik werk zelfstandig maar ben
-          ook een sterke teamspeler in Agile/Scrum omgevingen.
+          Mijn kracht ligt in enterprise-integraties, REST API's en service-georiënteerde/MACH-architecturen,
+          met oog voor technische standaarden, onderhoudbaarheid en code reviews. Ik werk zelfstandig
+          én als teamspeler in (internationale) Agile/Scrum-teams.
         </p>
         <p>
-          Naast freelance opdrachten ontwikkel ik eigen SaaS-producten,
-          waaronder <strong>TafelTour</strong>.
+          Recent werk omvat productie-LLM-integraties, waaronder een server-side AI-agent op
+          Anthropic Claude, en dagelijkse ontwikkeling met Claude Code als AI pair programmer.
+          Naast freelance opdrachten ontwikkel ik eigen SaaS-producten, waaronder <strong>TafelTour</strong>.
         </p>
         <div class="skills-list">
-          <span class="skill-tag">Angular</span>
           <span class="skill-tag">TypeScript</span>
+          <span class="skill-tag">Angular</span>
           <span class="skill-tag">Node.js</span>
-          <span class="skill-tag">Firebase</span>
-          <span class="skill-tag">AWS</span>
+          <span class="skill-tag">React / Next.js</span>
           <span class="skill-tag">RxJS / NgRx</span>
           <span class="skill-tag">C#.NET</span>
-          <span class="skill-tag">Laravel / PHP</span>
-          <span class="skill-tag">Docker</span>
+          <span class="skill-tag">AWS</span>
+          <span class="skill-tag">Azure / Azure DevOps</span>
+          <span class="skill-tag">Firebase</span>
           <span class="skill-tag">REST API</span>
           <span class="skill-tag">SQL / NoSQL</span>
+          <span class="skill-tag">Docker</span>
+          <span class="skill-tag">Anthropic Claude</span>
         </div>
       </div>
       <div>
@@ -630,6 +653,14 @@
             <li><strong>Type</strong> Eenmanszaak</li>
             <li><strong>Vestiging</strong> Nijmegen, Nederland</li>
             <li><strong>Opgericht</strong> 1994</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>🎓 Opleiding &amp; talen</h3>
+          <ul>
+            <li><strong>Opleiding</strong> BSc Informatica – Fontys Hogeschool, Eindhoven</li>
+            <li><strong>Trainingen</strong> PRINCE2, ITIL, Collaborative Communication</li>
+            <li><strong>Talen</strong> Nederlands, Engels (vloeiend), Spaans, Duits</li>
           </ul>
         </div>
       </div>
@@ -650,38 +681,39 @@
       <div class="service-card">
         <div class="service-icon">🖥️</div>
         <h3>Frontend Development</h3>
-        <p>Moderne webapplicaties met Angular, TypeScript, RxJS en NgRx.
-           Responsive, toegankelijk en performant.</p>
+        <p>Moderne web- en mobiele applicaties met Angular, React/Next.js,
+           TypeScript, RxJS en Ionic. Responsive, toegankelijk en performant.</p>
       </div>
       <div class="service-card">
         <div class="service-icon">⚙️</div>
         <h3>Backend Development</h3>
-        <p>Schaalbare API's en serverless architecturen in Node.js,
-           Laravel/PHP en C#.NET, met SQL en NoSQL databases.</p>
+        <p>Schaalbare API's en serverless backends in Node.js en C#.NET,
+           met SQL- en NoSQL-databases en Firebase.</p>
       </div>
       <div class="service-card">
         <div class="service-icon">☁️</div>
-        <h3>Cloud & Infra</h3>
-        <p>Implementatie en beheer op AWS, Firebase, Azure en Digital Ocean,
-           inclusief CI/CD-pipelines en Docker.</p>
+        <h3>Cloud & DevOps</h3>
+        <p>Cloud-native oplossingen op AWS (Lambda, S3, SQS), Azure en Firebase,
+           inclusief CI/CD, Azure DevOps en Docker.</p>
       </div>
       <div class="service-card">
-        <div class="service-icon">📱</div>
-        <h3>Mobiele Apps</h3>
-        <p>Cross-platform apps voor iOS en Android via Ionic/Capacitor,
-           beschikbaar in de App Store en Google Play.</p>
+        <div class="service-icon">🤖</div>
+        <h3>AI-integraties</h3>
+        <p>Productierijpe LLM-toepassingen op Anthropic Claude: AI-agents met
+           identiteitscontrole, escalatie en kostenlimieten, plus AI-ondersteunde
+           content, vertaling en SEO.</p>
       </div>
       <div class="service-card">
         <div class="service-icon">🔌</div>
         <h3>Systeemintegraties</h3>
-        <p>Koppelingen tussen systemen via REST, SOAP en ETL-platformen
-           zoals Celigo. Ervaring met ERP/CRM-trajecten.</p>
+        <p>Veilige koppelingen tussen systemen via REST API's, messaging en
+           ETL/datatransformatie – o.a. met Microsoft Dynamics Field Service.</p>
       </div>
       <div class="service-card">
         <div class="service-icon">💳</div>
         <h3>Betaalintegraties</h3>
-        <p>Implementatie van online betalingen via Mollie, Pay.nl en
-           andere PSP's voor webshops en SaaS-producten.</p>
+        <p>Online betalingen via Mollie en Pay.nl (iDEAL, PayPal, Bancontact)
+           voor webshops en SaaS, inclusief webhooks en PSP-migraties.</p>
       </div>
     </div>
   </div>
@@ -705,108 +737,106 @@
       <div class="tt-step">
         <div class="tt-step-num">1</div>
         <h3>Aanmelden &amp; voorkeuren</h3>
-        <p>Geef je dieetwensen op en geef aan of je een gang kunt organiseren bij jou thuis.</p>
+        <p>Meld je team aan via de eventpagina, geef je dieetwensen op en of je een gang kunt hosten bij jou thuis.</p>
       </div>
       <div class="tt-step">
         <div class="tt-step-num">2</div>
         <h3>Slimme koppeling</h3>
-        <p>Ons matchingsalgoritme bepaalt jouw route: voorgerecht, hoofdgerecht en nagerecht – elk bij een andere gastheer.</p>
+        <p>Ons planningsalgoritme bepaalt jouw route: voorgerecht, hoofdgerecht en nagerecht – elk bij een andere gastheer, zonder dubbele ontmoetingen.</p>
       </div>
       <div class="tt-step">
         <div class="tt-step-num">3</div>
-        <h3>Volg je live route</h3>
-        <p>Check in bij elke gang via de app, ontvang real-time updates en ontmoet elke ronde nieuwe tafelgenoten.</p>
+        <h3>Volg je route</h3>
+        <p>Je persoonlijke route komt per e-mail. Op de avond zelf check je in per gang en volgt de organisator alles via het live dashboard.</p>
       </div>
     </div>
 
-    <!-- Features + betaling -->
+    <!-- Features + prijzen -->
     <div class="tafeltour-grid">
       <div class="tafeltour-info">
         <p>
-          TafelTour is een platform voor het organiseren van Running Dinner evenementen –
-          ontwikkeld door Esitec. Deelnemers eten elke gang op een ander adres en leren
-          zo op een laagdrempelige manier nieuwe mensen kennen.
+          TafelTour is het platform voor Running Dinners in Nederland – ontwikkeld door Esitec
+          en live op <a href="https://tafeltour.nl" style="color:#f5891e;">tafeltour.nl</a>.
+          Elke deelnemer kookt één gang en eet de andere gangen bij anderen thuis;
+          TafelTour regelt de indeling, routes en communicatie.
         </p>
         <ul>
-          <li>Slim matchingsalgoritme voor optimale routes</li>
-          <li>Beheer van dieetwensen en hostcapaciteit</li>
-          <li>Live route-app voor deelnemers</li>
-          <li>Real-time check-ins per gang</li>
-          <li>Admin dashboard voor organisatoren</li>
-          <li>Automatische e-mailbevestigingen</li>
-          <li>Veilig betalen via Mollie (iDEAL &amp; meer)</li>
+          <li>Automatische routeplanning met kwaliteitsrapport</li>
+          <li>Dieetwensen en allergenen automatisch verwerkt</li>
+          <li>Inschrijven, betalen en wachtlijst volledig automatisch</li>
+          <li>Bevestigings- en routemails naar alle deelnemers</li>
+          <li>Live dashboard voor de organisator op de avond zelf</li>
+          <li>Kant-en-klaar promotiemateriaal voor je event</li>
+          <li>Veilig betalen via Mollie (iDEAL, PayPal &amp; Bancontact)</li>
         </ul>
 
         <div class="tt-for-org">
           <strong>Voor organisatoren</strong>
-          Organiseer je een Running Dinner voor jouw vereniging, bedrijf of buurt?
-          TafelTour regelt de volledige logistiek digitaal —
+          Organiseer je een Running Dinner voor vrienden, buurt, bedrijf of vereniging?
+          Maak je event aan in 5 minuten – TafelTour regelt de logistiek digitaal,
           van aanmelding tot routepublicatie.
           <br><br>
-          <a href="#" class="email-link" data-user="info" data-domain="esitec.nl" style="color:#f5891e; font-weight:600;">
-            Neem contact op voor een demo →
+          <a href="https://tafeltour.nl">Gratis starten op tafeltour.nl →</a>
+          <br>
+          <a href="#" class="email-link" data-user="info" data-domain="esitec.nl">
+            Of neem contact op voor een demo →
           </a>
         </div>
       </div>
 
-      <!-- Betaalkaart -->
+      <!-- Prijskaart -->
       <div class="payment-card">
-        <h3>🎟️ Meld je aan voor een event</h3>
+        <h3>🎟️ Eerlijke, transparante prijzen</h3>
+        <p class="price-intro">Jij kiest wie de platformkosten draagt – de organisator of de deelnemers.</p>
 
-        <div class="price-option selected" onclick="selectOption(this)">
-          <div>
-            <div class="price-label">
-              <strong>Deelname per event</strong>
-              Eenmalige registratie voor 1 Running Dinner
-            </div>
+        <div class="price-option featured">
+          <div class="price-label">
+            <strong>Deelnemers betalen <span class="badge">Meest gekozen</span></strong>
+            Platformbijdrage per aanmelding; de organisator betaalt niets
           </div>
           <div>
-            <div class="price-amount">€ 12,50</div>
-            <div class="price-sub">per persoon</div>
+            <div class="price-amount">€ 1,95</div>
+            <div class="price-sub">per aanmelding</div>
           </div>
         </div>
 
-        <div class="price-option" onclick="selectOption(this)">
-          <div>
-            <div class="price-label">
-              <strong>Organisatiepakket — Klein</strong>
-              Tot 30 deelnemers, volledig platform
-            </div>
+        <div class="price-option">
+          <div class="price-label">
+            <strong>Organisator betaalt</strong>
+            Eenmalig per event; geen platformkosten voor deelnemers
           </div>
           <div>
-            <div class="price-amount">€ 29,99</div>
+            <div class="price-amount">€ 35,00</div>
             <div class="price-sub">per event</div>
           </div>
         </div>
 
-        <div class="price-option" onclick="selectOption(this)">
-          <div>
-            <div class="price-label">
-              <strong>Organisatiepakket — Groot</strong>
-              <span class="badge">Populair</span>
-              Tot 100 deelnemers, inclusief support
-            </div>
+        <div class="price-option">
+          <div class="price-label">
+            <strong>Pro <span class="badge soon">Binnenkort</span></strong>
+            Onbeperkt aanmeldingen, eigen branding, WhatsApp &amp; SMS, analytics
           </div>
           <div>
-            <div class="price-amount">€ 79,99</div>
-            <div class="price-sub">per event</div>
+            <div class="price-amount">€ 150</div>
+            <div class="price-sub">per event · of € 295/jaar</div>
           </div>
         </div>
 
-        <button class="pay-btn" onclick="startPayment()">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-            <line x1="1" y1="10" x2="23" y2="10"></line>
-          </svg>
-          Nu veilig betalen
-        </button>
+        <p class="price-footnote">
+          Alle bedragen zijn inclusief btw. Beide basisopties: tot 40 aanmeldingen per event,
+          automatische routeplanning, dieetwensenbeheer en route-mails.
+        </p>
+
+        <a class="pay-btn" href="https://tafeltour.nl/prijzen">
+          Bekijk prijzen &amp; start gratis
+        </a>
 
         <p class="mollie-note">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
           </svg>
-          Beveiligd betalen via Mollie · iDEAL · Creditcard · Bancontact
+          Deelnemers betalen veilig via Mollie · iDEAL · PayPal · Bancontact
         </p>
       </div>
     </div>
@@ -823,39 +853,51 @@
     <div class="timeline">
 
       <div class="timeline-item">
+        <h3>Freelance Full Stack Developer – Sadhaka</h3>
+        <div class="period">Jun – Aug 2026</div>
+        <p>Nieuwe publieke website en deelnemersflows via een getypeerde BFF, inclusief boekingsflow en migratie van Pay.nl naar Mollie. Server-side AI op Anthropic Claude: een WhatsApp-antwoordagent en AI-ondersteunde content, vertaling, SEO en beeldgeneratie. Next.js 16, React 19, TypeScript, Firebase, Claude Code.</p>
+      </div>
+
+      <div class="timeline-item">
         <h3>Freelance Frontend Developer – Kinetiq</h3>
-        <div class="period">Mei 2024 – heden</div>
-        <p>Nieuw tagging-systeem ontwikkeld voor Red Bull. Angular 19, RxJS, TypeScript, C#.NET.</p>
+        <div class="period">Mei 2024 – Jun 2026</div>
+        <p>Productie-taggingplatform voor de internationale Red Bull-organisatie en modernisering van interne applicaties. Code reviews, frontend-standaarden en C#.NET-backendwerk. AI-first werkwijze met intensief dagelijks gebruik van AI-tooling zoals Claude Code en GitHub Copilot. Angular 19–20, RxJS, TypeScript, NgZorro.</p>
+      </div>
+
+      <div class="timeline-item">
+        <h3>Freelance Full Stack Developer – Databrydge / ANWR-Garant</h3>
+        <div class="period">2021 – 2024</div>
+        <p>Financiële backoffice voor een netwerk van 150+ webshops binnen een MACH-architectuur. Angular 17, NgRx, Node.js 18, AWS Lambda, S3, SQS, CI/CD.</p>
       </div>
 
       <div class="timeline-item">
         <h3>Freelance Full Stack Developer – Sadhaka</h3>
         <div class="period">Jan – Mei 2024</div>
-        <p>Boekingssysteem voor events: inschrijvingen, betalingen (Pay.nl), Firebase, Angular 17.</p>
-      </div>
-
-      <div class="timeline-item">
-        <h3>Freelance Full Stack Developer – Databrydge / ANWR-Garant</h3>
-        <div class="period">2021 – 2024 (3+ jaar)</div>
-        <p>Intern orderproces-platform voor 150+ webshops. Angular 17, NgRx, Node.js 18, AWS, MySQL.</p>
+        <p>Boekings- en administratieplatform vanaf nul: deelnemersapp en backoffice voor events, locaties, accommodaties en catering. iDEAL-betalingen via Pay.nl. Angular 17, Firebase Cloud Functions.</p>
       </div>
 
       <div class="timeline-item">
         <h3>Freelance Developer – Rsult</h3>
         <div class="period">2022 – 2023</div>
-        <p>Oracle NetSuite-integraties via Celigo ETL. TypeScript, REST, SOAP.</p>
+        <p>Oracle NetSuite-integraties op het Celigo Integration Platform (ETL), inclusief datamapping en -transformatie. TypeScript, REST, SOAP.</p>
+      </div>
+
+      <div class="timeline-item">
+        <h3>Freelance Developer – Databalk</h3>
+        <div class="period">2022</div>
+        <p>API-integraties en berichtstromen tussen interne systemen en Microsoft Dynamics Field Service. Node.js, TypeScript, Express, Azure DevOps.</p>
       </div>
 
       <div class="timeline-item">
         <h3>Owner / Developer – Consumedia bv</h3>
-        <div class="period">2008 – 2021 (13 jaar)</div>
-        <p>Diverse web- en mobieleapplicaties voor klanten als Coop Supermarkten en Rijkswaterstaat.</p>
+        <div class="period">2008 – 2021</div>
+        <p>Web-, webshop- en mobiele applicaties voor klanten als Rijkswaterstaat en Coop Supermarkten. Eindverantwoordelijk voor architectuur, integraties en projectoplevering.</p>
       </div>
 
       <div class="timeline-item">
-        <h3>System Engineer – Canon Nederland</h3>
+        <h3>System Engineer / Integration Specialist – Canon Nederland</h3>
         <div class="period">2008 – 2019</div>
-        <p>Implementatie van web-to-print oplossingen, systeemintegraties, projectmanagement. C#.NET, Azure.</p>
+        <p>Bedrijfskritische web-to-print-applicaties, interfaces en integraties. C#.NET, MSSQL, Azure, ETL.</p>
       </div>
 
     </div>
@@ -915,7 +957,7 @@
     <img src="logo.png" alt="Esitec">
   </div>
   <p>
-    &copy; 2025 Esitec – Eugène Spaan &nbsp;·&nbsp;
+    &copy; 2026 Esitec – Eugène Spaan &nbsp;·&nbsp;
     Nijmegen, Nederland &nbsp;·&nbsp;
     <a href="#" class="email-link" data-user="info" data-domain="esitec.nl">info&#64;esitec&#46;nl</a>
   </p>
@@ -926,20 +968,6 @@
 </footer>
 
 <script>
-  function selectOption(el) {
-    document.querySelectorAll('.price-option').forEach(o => o.classList.remove('selected'));
-    el.classList.add('selected');
-  }
-
-  function startPayment() {
-    const selected = document.querySelector('.price-option.selected');
-    const label = selected.querySelector('.price-label strong').textContent;
-    const amount = selected.querySelector('.price-amount').textContent.trim();
-    // TODO: vervang door Mollie checkout URL of server-side API-aanroep
-    // Voorbeeld: window.location.href = '/api/tafeltour/checkout?plan=deelname';
-    alert(`Betaling starten voor:\n${label} – ${amount}\n\n(Koppel hier je Mollie checkout URL)`);
-  }
-
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.email-link').forEach(function (el) {
       el.href = 'mailto:' + el.dataset.user + '@' + el.dataset.domain;
