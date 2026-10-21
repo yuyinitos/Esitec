@@ -3,977 +3,1195 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Esitec – Software Development & Online Diensten</title>
-  <meta name="description" content="Esitec is de eenmanszaak van Eugène Spaan: senior full-stack developer (TypeScript, Angular, Node.js, cloud &amp; AI) en maker van TafelTour, het platform voor Running Dinners.">
+  <title>Esitec | AI-specialist voor webapplicaties, apps &amp; integraties</title>
+  <meta name="description" content="Esitec bouwt professionele webapplicaties en apps, productierijpe AI-agents en complete integraties tussen systemen, voor 25% van de traditionele ontwikkelkosten. Senior engineering door Eugène Spaan, Nijmegen.">
+  <meta name="theme-color" content="#000041">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --navy:   #0d0e4a;
-      --red:    #e8302a;
-      --light:  #f5f6fa;
-      --white:  #ffffff;
-      --text:   #2c2c3e;
-      --muted:  #6b6b8a;
-      --border: #e0e0ee;
+      --ink:      #000041;   /* navy uit het logo */
+      --ink-2:    #24245e;
+      --muted:    #5a5a7e;
+      --red:      #ff2600;   /* de stip op de i */
+      --red-ink:  #d42000;
+      --peach:    #fff0eb;
+      --peach-2:  #ffd9cf;
+      --paper:    #fbfaf7;
+      --mist:     #f3f3f9;
+      --line:     #e4e4ef;
+      --white:    #ffffff;
+      --radius:   20px;
+      --shadow:   0 1px 2px rgba(0,0,65,.06), 0 12px 32px -12px rgba(0,0,65,.18);
+      --display:  'Fira Sans', 'Inter', system-ui, sans-serif;
+      --display-weight: 700;
+      --display-track:  -.015em;
+      --body:     'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      color-scheme: light;
     }
-
-    html { scroll-behavior: smooth; }
-
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
     body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      color: var(--text);
-      background: var(--white);
+      font-family: var(--body);
+      color: var(--ink);
+      background: var(--paper);
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--red); outline-offset: 3px; border-radius: 6px; }
 
-    /* ── NAVIGATION ── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: var(--navy);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2rem;
-      height: 64px;
-      box-shadow: 0 2px 12px rgba(13,14,74,.4);
+    .wrap { width: min(1200px, 100% - 48px); margin-inline: auto; }
+    @media (max-width: 600px) { .wrap { width: calc(100% - 32px); } }
+
+    h1, h2, h3 { font-family: var(--display); line-height: 1.08; letter-spacing: var(--display-track); font-weight: var(--display-weight); text-wrap: balance; }
+    p { text-wrap: pretty; }
+    h2 { font-size: clamp(2rem, 4vw, 3.1rem); }
+    h3 { font-size: 1.3rem; font-weight: 700; letter-spacing: -.01em; }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: .55rem;
+      font-size: .8rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--ink-2); margin-bottom: 1.1rem;
     }
+    .eyebrow::before { content: ''; width: 9px; height: 9px; border-radius: 50%; background: var(--red); }
+    .lead { font-size: 1.12rem; color: var(--muted); max-width: 640px; }
+    .section { padding: clamp(4.5rem, 9vw, 7.5rem) 0; }
+    .section-head { max-width: 720px; margin-bottom: 3.25rem; }
+    .section-head.center { margin-inline: auto; text-align: center; }
+    .section-head.center .lead { margin-inline: auto; }
+    .section-head h2 { margin-bottom: 1rem; }
 
-    nav .logo img { height: 36px; filter: brightness(0) invert(1); }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 2rem;
-    }
-
-    nav ul a {
-      color: rgba(255,255,255,.85);
-      text-decoration: none;
-      font-size: .9rem;
-      font-weight: 500;
-      letter-spacing: .02em;
-      transition: color .2s;
-    }
-
-    nav ul a:hover { color: var(--white); }
-
-    nav .cta-btn {
-      background: var(--red);
-      color: var(--white) !important;
-      padding: .45rem 1.1rem;
-      border-radius: 6px;
-      font-weight: 600 !important;
-    }
-
-    nav .cta-btn:hover { background: #c8251f; }
-
-    /* ── HERO ── */
-    .hero {
-      background: linear-gradient(135deg, var(--navy) 0%, #1a1b6e 100%);
-      color: var(--white);
-      text-align: center;
-      padding: 5rem 2rem 4rem;
-    }
-
-    .hero img.hero-logo {
-      height: 70px;
-      margin-bottom: 2rem;
-      filter: brightness(0) invert(1);
-    }
-
-    .hero h1 {
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-
-    .hero h1 span { color: var(--red); }
-
-    .hero p.tagline {
-      font-size: 1.15rem;
-      color: rgba(255,255,255,.8);
-      max-width: 600px;
-      margin: 0 auto 2rem;
-    }
-
-    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-
+    /* ── Buttons ── */
     .btn {
-      display: inline-block;
-      padding: .75rem 1.75rem;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: .95rem;
-      text-decoration: none;
-      transition: transform .15s, box-shadow .15s;
+      display: inline-flex; align-items: center; gap: .75rem;
+      font: 600 1rem/1 var(--body); text-decoration: none;
+      padding: .5rem .55rem .5rem 1.4rem; min-height: 52px; border-radius: 999px;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s;
+      cursor: pointer; border: 0; white-space: nowrap;
+    }
+    .btn .arrow {
+      display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%;
+      background: var(--red); color: var(--white); transition: transform .25s ease;
+    }
+    .btn:hover .arrow { transform: translateX(3px) rotate(-45deg); }
+    .btn-primary { background: var(--ink); color: var(--white); box-shadow: 0 10px 24px -10px rgba(0,0,65,.55); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 30px -12px rgba(0,0,65,.6); }
+    .btn-ghost { background: transparent; color: var(--ink); padding: .5rem 1.2rem; border: 1.5px solid rgba(0,0,65,.18); }
+    .btn-ghost:hover { border-color: var(--ink); background: rgba(255,255,255,.6); }
+    .btn-light { background: var(--white); color: var(--ink); }
+    .btn-light:hover { transform: translateY(-2px); }
+    .link-arrow { font-weight: 600; color: var(--red-ink); text-decoration: none; display: inline-flex; gap: .4rem; align-items: center; }
+    .link-arrow:hover { gap: .65rem; }
+    .link-arrow { transition: gap .2s; }
+
+    /* ── Navigatie ── */
+    .nav-shell { position: sticky; top: 14px; z-index: 50; margin-top: 14px; }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      background: rgba(255,255,255,.86); backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px);
+      border: 1px solid rgba(0,0,65,.08); border-radius: 18px; padding: 10px 10px 10px 22px;
+      box-shadow: 0 8px 30px -14px rgba(0,0,65,.25);
+    }
+    .nav .logo img { height: 28px; width: auto; }
+    .nav-links { display: flex; gap: .25rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; font-size: .95rem; font-weight: 500; color: var(--ink-2);
+      padding: .55rem .9rem; border-radius: 10px; transition: background .2s;
+    }
+    .nav-links a:hover { background: var(--mist); }
+    .nav .btn { min-height: 46px; padding-left: 1.15rem; font-size: .95rem; }
+    .nav .btn .arrow { width: 32px; height: 32px; }
+    .menu-toggle { display: none; background: none; border: 0; width: 46px; height: 46px; border-radius: 12px; cursor: pointer; color: var(--ink); }
+    .menu-toggle:hover { background: var(--mist); }
+    .mobile-menu { display: none; }
+    @media (max-width: 960px) {
+      .nav-links, .nav .btn { display: none; }
+      .menu-toggle { display: grid; place-items: center; }
+      .mobile-menu {
+        display: block; position: absolute; left: 0; right: 0; top: calc(100% + 8px);
+        background: var(--white); border-radius: 18px; padding: .75rem; box-shadow: var(--shadow);
+        border: 1px solid var(--line); opacity: 0; transform: translateY(-6px); pointer-events: none;
+        transition: opacity .2s, transform .2s;
+      }
+      .mobile-menu.open { opacity: 1; transform: none; pointer-events: auto; }
+      .mobile-menu a { display: block; padding: .85rem 1rem; text-decoration: none; font-weight: 500; border-radius: 10px; }
+      .mobile-menu a:hover { background: var(--mist); }
+      .mobile-menu .btn { display: flex; justify-content: space-between; margin-top: .5rem; }
     }
 
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.2); }
+    /* ── Hero ── */
+    .hero { position: relative; padding: clamp(3rem, 7vw, 5.5rem) 0 clamp(3.5rem, 6vw, 5rem); overflow: hidden; }
+    .hero::before {
+      content: ''; position: absolute; inset: -120px 0 0; z-index: -1;
+      background:
+        radial-gradient(900px 520px at 85% 30%, var(--peach) 0%, rgba(255,240,235,0) 70%),
+        linear-gradient(180deg, #fff6f2 0%, var(--paper) 100%);
+    }
+    .hero-grid { display: grid; grid-template-columns: 1.02fr 1fr; gap: clamp(1.5rem, 4vw, 4rem); align-items: center; }
+    .hero h1 { font-size: clamp(2.5rem, 5vw, 4.15rem); margin-bottom: 1.4rem; }
+    .hero h1 .mark { position: relative; white-space: nowrap; }
+    .hero h1 .mark svg { position: absolute; left: -2%; bottom: -.2em; width: 104%; height: .42em; overflow: visible; }
+    .hero h1 .mark path { stroke-dasharray: 520; stroke-dashoffset: 520; animation: draw 1.1s .5s cubic-bezier(.6,.1,.2,1) forwards; }
+    .hero .lead { font-size: clamp(1.08rem, 1.5vw, 1.22rem); margin-bottom: 2.1rem; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: .8rem; align-items: center; }
+    .hero .lead .hl { color: var(--ink); font-weight: 600; background: linear-gradient(transparent 60%, var(--peach-2) 60%); }
+    .hero-stat {
+      position: absolute; left: 2%; bottom: 4%; display: flex; align-items: center; gap: .85rem; text-decoration: none;
+      background: var(--white); border: 1.5px solid var(--ink); border-radius: 18px; padding: .7rem 1.1rem .7rem .8rem;
+      box-shadow: 6px 6px 0 var(--ink); transform: rotate(-3deg); transition: transform .25s;
+    }
+    .hero-stat:hover { transform: rotate(0) translateY(-2px); }
+    .hero-stat .frac { font-family: var(--display); font-weight: 800; font-size: 2.6rem; line-height: 1; color: var(--red); }
+    .hero-stat strong { display: block; font-family: var(--display); font-weight: var(--display-weight); font-size: 1.02rem; line-height: 1.2; }
+    .hero-stat span span, .hero-stat > span:last-child { font-size: .8rem; color: var(--muted); line-height: 1.35; max-width: 170px; }
+    @media (max-width: 520px) { .hero-stat { left: 0; bottom: -2%; padding: .55rem .9rem .55rem .7rem; } .hero-stat .frac { font-size: 2.1rem; } }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: .4rem 1.25rem; margin-top: 1.75rem; font-size: .9rem; color: var(--muted); }
+    .hero-meta span { display: inline-flex; align-items: center; gap: .45rem; }
+    .hero-meta svg { color: var(--red); flex: none; }
 
-    .btn-primary { background: #f5891e; color: var(--white); }
-    .btn-primary:hover { background: #d97310; }
-    .btn-outline  { border: 2px solid rgba(255,255,255,.7); color: var(--white); }
-    .btn-outline:hover { background: rgba(255,255,255,.1); }
-
-    /* ── SECTIONS ── */
-    section { padding: 4rem 2rem; }
-    .section-inner { max-width: 1000px; margin: 0 auto; }
-
-    .section-label {
-      display: inline-block;
-      background: rgba(232,48,42,.1);
-      color: var(--red);
-      font-size: .8rem;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      padding: .25rem .75rem;
-      border-radius: 20px;
-      margin-bottom: .75rem;
+    .hero-art { position: relative; aspect-ratio: 600 / 444; }
+    .hero-art .disc {
+      position: absolute; z-index: -1; width: 88%; aspect-ratio: 1; left: 8%; top: -4%;
+      border-radius: 50%; background: var(--peach-2);
+    }
+    .hero-art .disc::after {
+      content: ''; position: absolute; inset: -22px; border-radius: 50%;
+      border: 2px dashed rgba(255,38,0,.35); animation: spin 60s linear infinite;
+    }
+    .iso-art { width: 100%; height: auto; overflow: visible; }
+    .iso-t { font-family: var(--display); font-weight: 800; fill: var(--ink); letter-spacing: .02em; }
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-art { max-width: 560px; margin: 1rem auto 0; width: 100%; }
     }
 
-    h2 {
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      color: var(--navy);
-      margin-bottom: 1rem;
+    /* ── Trust bar ── */
+    .trust { margin-top: clamp(2.5rem, 5vw, 4rem); }
+    .trust-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow);
+    }
+    .trust-item { padding: 1.5rem 1.6rem; display: flex; gap: 1rem; align-items: flex-start; }
+    .trust-item + .trust-item { border-left: 1px solid var(--line); }
+    .trust-item .ico { flex: none; width: 42px; height: 42px; border-radius: 12px; background: var(--peach); color: var(--red-ink); display: grid; place-items: center; }
+    .trust-item strong { display: block; font-family: var(--display); font-size: 1.35rem; line-height: 1.15; letter-spacing: -.01em; }
+    .trust-item span { font-size: .88rem; color: var(--muted); line-height: 1.4; display: block; margin-top: .2rem; }
+    @media (max-width: 1000px) {
+      .trust-grid { grid-template-columns: 1fr 1fr; }
+      .trust-item:nth-child(3) { border-left: 0; }
+      .trust-item:nth-child(n+3) { border-top: 1px solid var(--line); }
+    }
+    @media (max-width: 560px) {
+      .trust-item { padding: 1.1rem 1rem; flex-direction: column; gap: .6rem; }
+      .trust-item .ico { width: 34px; height: 34px; border-radius: 10px; }
+      .trust-item .ico svg { width: 18px; height: 18px; }
+      .trust-item strong { font-size: 1.12rem; }
+      .trust-item span { font-size: .8rem; }
+      .clients { gap: .4rem 1.4rem; }
+      .clients span { font-size: 1rem; }
+    }
+    .clients { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .6rem 2.4rem; margin-top: 2.2rem; }
+    .clients small { width: 100%; text-align: center; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+    .clients span { font-family: var(--display); font-weight: 700; font-size: 1.15rem; color: rgba(0,0,65,.42); letter-spacing: -.01em; }
+
+    /* ── Diensten ── */
+    .services { background: var(--white); }
+    .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .service {
+      position: relative; background: var(--paper); border: 1px solid var(--line); border-radius: 24px;
+      padding: 2.2rem 2rem 2rem; display: flex; flex-direction: column;
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s;
+    }
+    .service:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: transparent; }
+    .service .badge-ico { position: relative; width: 76px; height: 76px; margin-bottom: 1.6rem; display: grid; place-items: center; color: var(--ink); }
+    .service .badge-ico::before { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--peach-2); clip-path: inset(0 0 50% 0); transform: rotate(-35deg); }
+    .service .badge-ico::after { content: ''; position: absolute; inset: 9px; border-radius: 50%; background: var(--white); border: 1.5px solid var(--ink); }
+    .service .badge-ico svg { position: relative; z-index: 1; }
+    .service h3 { margin-bottom: .75rem; font-size: 1.45rem; }
+    .service p { color: var(--muted); font-size: .98rem; margin-bottom: 1.25rem; }
+    .service ul { list-style: none; display: grid; gap: .5rem; margin-bottom: 1.6rem; }
+    .service li { display: flex; gap: .6rem; font-size: .93rem; color: var(--ink-2); }
+    .service li::before { content: ''; flex: none; width: 7px; height: 7px; margin-top: .55rem; border-radius: 50%; background: var(--red); }
+    .service .link-arrow { margin-top: auto; }
+    .service.featured { background: var(--ink); color: var(--white); border-color: var(--ink); }
+    .service.featured p, .service.featured li { color: rgba(255,255,255,.78); }
+    .service.featured .badge-ico::after { border-color: var(--white); background: var(--ink); }
+    .service.featured .badge-ico { color: var(--white); }
+    .service.featured .badge-ico::before { background: var(--red); }
+    .service.featured .link-arrow { color: #ff8a6e; }
+    .service .tag { position: absolute; top: 1.4rem; right: 1.4rem; font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; background: var(--red); color: var(--white); padding: .3rem .65rem; border-radius: 999px; }
+
+    .mini-services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 1.25rem; }
+    .mini { display: flex; gap: 1rem; align-items: flex-start; padding: 1.4rem 1.5rem; border-radius: 18px; border: 1px dashed rgba(0,0,65,.18); }
+    .mini .ico { flex: none; width: 40px; height: 40px; border-radius: 12px; background: var(--mist); display: grid; place-items: center; }
+    .mini strong { display: block; font-size: 1rem; margin-bottom: .15rem; }
+    .mini span { font-size: .88rem; color: var(--muted); line-height: 1.5; display: block; }
+    @media (max-width: 960px) { .service-grid, .mini-services { grid-template-columns: 1fr; } }
+    @media (min-width: 640px) and (max-width: 960px) { .mini-services { grid-template-columns: 1fr 1fr; } }
+
+    /* ── 25% van de kosten ── */
+    .faster { background: var(--white); padding-top: 0; }
+    .faster-card {
+      display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center;
+      background: var(--peach); border-radius: 32px; padding: clamp(1.75rem, 5vw, 4rem); position: relative; overflow: hidden;
+    }
+    .faster-card::after { content: '25%'; position: absolute; right: -1.5rem; top: -3.5rem; font-family: var(--display); font-weight: 800; font-size: 13rem; line-height: 1; color: rgba(255,38,0,.07); pointer-events: none; }
+    .faster h2 { margin-bottom: 1rem; }
+    .reasons { list-style: none; display: grid; gap: 1.1rem; margin-top: 1.75rem; }
+    .reasons li { display: flex; gap: 1rem; align-items: flex-start; color: var(--muted); font-size: .97rem; }
+    .reasons strong { display: block; color: var(--ink); font-size: 1.02rem; margin-bottom: .1rem; }
+    .reasons .rn { flex: none; width: 32px; height: 32px; border-radius: 50%; background: var(--ink); color: var(--white); display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: .9rem; }
+    .bars { background: var(--white); border-radius: 24px; padding: 1.75rem; box-shadow: var(--shadow); position: relative; z-index: 1; }
+    .bar-group + .bar-group { margin-top: 1.5rem; }
+    .bar-note { font-size: .8rem; color: var(--muted); margin-top: .9rem; }
+    .bar-label { font-family: var(--display); font-weight: var(--display-weight); font-size: 1.05rem; margin-bottom: .7rem; }
+    .bar-row { display: grid; grid-template-columns: 92px 1fr 46px; gap: .75rem; align-items: center; font-size: .86rem; color: var(--muted); }
+    .bar-row + .bar-row { margin-top: .5rem; }
+    .bar-row b { text-align: right; color: var(--ink); font-family: var(--display); font-size: 1rem; }
+    .bar { height: 14px; border-radius: 999px; background: var(--mist); overflow: hidden; }
+    .bar i { display: block; height: 100%; width: var(--w); border-radius: 999px; background: rgba(0,0,65,.28); }
+    .bar-row.esi { color: var(--ink); font-weight: 600; }
+    .bar-row.esi i { background: var(--red); }
+    .bar-row.esi b { color: var(--red-ink); font-size: 1.25rem; }
+    .js .bars .bar i { width: 0; transition: width 1.2s cubic-bezier(.2,.7,.2,1) .3s; }
+    .js .bars.in .bar i { width: var(--w); }
+    .proof { display: flex; gap: .9rem; align-items: center; margin-top: 1.6rem; padding-top: 1.4rem; border-top: 1px solid var(--line); text-decoration: none; font-size: .88rem; color: var(--muted); line-height: 1.45; }
+    .proof img { border-radius: 11px; flex: none; }
+    .proof strong { display: block; color: var(--ink); font-size: .95rem; }
+    .proof:hover strong { color: var(--red-ink); }
+    .proof .nowrap { white-space: nowrap; }
+    .proof .rocket { display: inline-block; vertical-align: -5px; margin-left: .35rem; animation: launch 2.6s ease-in-out infinite; }
+    .proof .rocket .flame { transform-box: fill-box; transform-origin: top; animation: flame .35s ease-in-out infinite alternate; }
+    .proof:hover .rocket { animation: liftoff .7s cubic-bezier(.5,0,.2,1) both; }
+    @keyframes launch { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(2px, -3px); } }
+    @keyframes liftoff { 0% { transform: translate(0, 0); } 60% { transform: translate(14px, -14px); opacity: 0; } 61% { transform: translate(-6px, 6px); opacity: 0; } 100% { transform: translate(0, 0); opacity: 1; } }
+    @keyframes flame { from { transform: scaleY(.75); } to { transform: scaleY(1.15); } }
+    @media (max-width: 900px) { .faster-card { grid-template-columns: 1fr; } }
+
+    /* ── Split ── */
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 6vw, 5.5rem); align-items: center; }
+    .split .art { position: relative; }
+    .split .art::before { content: ''; position: absolute; z-index: -1; width: 74%; aspect-ratio: 1; left: 13%; top: 6%; border-radius: 50%; background: var(--peach); }
+    .split h2 { margin-bottom: 1.25rem; }
+    .split p { color: var(--muted); margin-bottom: 1rem; font-size: 1.04rem; }
+    .split p strong { color: var(--ink); }
+    .checks { list-style: none; display: grid; gap: .8rem; margin: 1.6rem 0 2rem; }
+    .checks li { display: flex; gap: .8rem; align-items: flex-start; font-weight: 500; }
+    .checks .ck { flex: none; width: 26px; height: 26px; border-radius: 50%; background: var(--red); color: var(--white); display: grid; place-items: center; margin-top: -1px; }
+    .checks-title { font-family: var(--display); font-weight: 700; font-size: 1.05rem; margin-top: 1.6rem; }
+    @media (max-width: 900px) { .split { grid-template-columns: 1fr; } .split .art { max-width: 540px; margin-inline: auto; width: 100%; } }
+
+    /* ── Quote ── */
+    .quote { background: var(--mist); position: relative; overflow: hidden; }
+    .quote .q-mark { width: 54px; color: var(--red); margin: 0 auto 1.75rem; }
+    .quote blockquote { max-width: 900px; margin: 0 auto; text-align: center; }
+    .quote blockquote p { font-family: var(--display); font-weight: 700; font-size: clamp(1.5rem, 3vw, 2.35rem); line-height: 1.25; letter-spacing: -.015em; }
+    .quote blockquote p em { font-style: normal; background: linear-gradient(transparent 62%, var(--peach-2) 62%); }
+    .quote footer { display: inline-flex; align-items: center; gap: .9rem; margin-top: 2rem; text-align: left; }
+    .avatar { width: 52px; height: 52px; border-radius: 50%; background: var(--ink); color: var(--white); display: grid; place-items: center; font-family: var(--display); font-weight: 800; position: relative; flex: none; }
+    .avatar::after { content: ''; position: absolute; top: 2px; right: 2px; width: 12px; height: 12px; border-radius: 50%; background: var(--red); border: 2px solid var(--mist); }
+    .quote footer strong { display: block; }
+    .quote footer span { font-size: .9rem; color: var(--muted); }
+
+    /* ── Werkwijze ── */
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; position: relative; counter-reset: step; }
+    .steps::before {
+      content: ''; position: absolute; top: 27px; left: 28px; right: 12%; height: 2px;
+      background-image: radial-gradient(circle, var(--ink) 1.2px, transparent 1.6px); background-size: 10px 2px; opacity: .35;
+    }
+    .step { position: relative; }
+    .step .num {
+      width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center;
+      font-family: var(--display); font-weight: 800; font-size: 1.1rem; background: var(--white); border: 1.5px solid var(--ink);
+      margin-bottom: 1.4rem; position: relative;
+    }
+    .step:nth-child(3) .num { background: var(--red); border-color: var(--red); color: var(--white); }
+    .step h3 { margin-bottom: .55rem; }
+    .step p { color: var(--muted); font-size: .96rem; }
+    .step .pill { display: inline-block; margin-top: .9rem; font-size: .78rem; font-weight: 600; padding: .3rem .7rem; border-radius: 999px; background: var(--peach); color: var(--red-ink); }
+    @media (max-width: 960px) {
+      .steps { grid-template-columns: 1fr 1fr; row-gap: 2.5rem; }
+      .steps::before { display: none; }
+    }
+    @media (max-width: 560px) { .steps { grid-template-columns: 1fr; } }
+
+    /* ── Cases ── */
+    .cases { background: var(--white); }
+    .case-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .case { background: var(--paper); border: 1px solid var(--line); border-radius: 24px; overflow: hidden; display: flex; flex-direction: column; transition: transform .3s, box-shadow .3s; }
+    .case:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .case .visual { aspect-ratio: 16 / 9; background: var(--peach); position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
+    .case:nth-child(2) .visual { background: #eceefb; }
+    .case:nth-child(3) .visual { background: #fff4e6; }
+    .case .visual svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .case .body { padding: 1.6rem 1.6rem 1.75rem; display: flex; flex-direction: column; flex: 1; }
+    .case .kicker { font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--red-ink); margin-bottom: .55rem; }
+    .case h3 { margin-bottom: .6rem; }
+    .case p { font-size: .95rem; color: var(--muted); margin-bottom: 1.3rem; }
+    .metrics { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-top: auto; }
+    .metric { background: var(--white); border: 1px solid var(--line); border-radius: 14px; padding: .8rem .9rem; min-height: 80px; }
+    .metric small { display: block; font-size: .72rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+    .metric strong { display: block; font-family: var(--display); font-size: 1.12rem; line-height: 1.2; margin-top: .2rem; }
+    .case .stack { font-size: .8rem; color: var(--muted); margin: -.4rem 0 1.3rem; }
+    @media (max-width: 1000px) { .case-grid { grid-template-columns: 1fr; max-width: 620px; margin-inline: auto; } }
+
+    .recent { margin-top: 2.5rem; }
+    .recent-head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: .4rem 1rem; margin-bottom: 1rem; }
+    .recent-head span { font-size: .88rem; color: var(--muted); }
+    .recent-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; }
+    .recent-item { background: var(--white); padding: 1.35rem 1.4rem 1.4rem; text-decoration: none; display: flex; flex-direction: column; gap: .3rem; transition: background .2s; }
+    a.recent-item:hover { background: var(--paper); }
+    a.recent-item:hover strong::after { transform: translate(2px, -2px); }
+    .recent-item small { font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--red-ink); }
+    .recent-item strong { font-family: var(--display); font-weight: var(--display-weight); font-size: 1.15rem; }
+    a.recent-item strong::after { content: ' ↗'; display: inline-block; font-size: .85em; color: var(--muted); transition: transform .2s; }
+    .recent-item span { font-size: .88rem; color: var(--muted); line-height: 1.5; }
+    .recent-item em { font-style: normal; font-size: .76rem; color: var(--muted); margin-top: auto; padding-top: .6rem; }
+    @media (max-width: 1000px) { .recent-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .recent-grid { grid-template-columns: 1fr; } }
+
+    /* ── Eigen producten ── */
+    .products { background: var(--white); padding-top: 0; }
+    .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .product { border-radius: 28px; padding: clamp(1.6rem, 3.5vw, 2.5rem); display: flex; flex-direction: column; position: relative; overflow: hidden; }
+    .product h3 { font-size: 1.9rem; margin-bottom: .75rem; }
+    .product p { margin-bottom: 1.4rem; }
+    .product .kicker { font-size: .76rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin-bottom: .3rem; }
+    .product .foot { margin-top: auto; padding-top: 1.4rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; border-top: 1px solid; }
+    .product .stack { font-size: .8rem; }
+    .feats { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: .55rem 1.2rem; margin-bottom: 1.6rem; }
+    .feats li { display: flex; gap: .55rem; font-size: .92rem; }
+    .feats li::before { content: ''; flex: none; width: 7px; height: 7px; margin-top: .55rem; border-radius: 50%; background: var(--red); }
+
+    .tafeltour { background: #fff6ec; border: 1px solid #fde3c8; }
+    .tafeltour .tt-logo { width: min(100%, 360px); height: auto; margin: -.25rem 0 1.5rem -.5rem; filter: drop-shadow(0 12px 18px rgba(120,60,0,.15)); }
+    .tafeltour .kicker { color: #c25400; }
+    .tafeltour p, .tafeltour .feats li { color: var(--ink-2); }
+    .tafeltour .foot { border-color: #fde3c8; }
+    .tafeltour .stack { color: var(--muted); }
+    .tafeltour .link-arrow { color: #c25400; }
+
+    .prepalarm { background: var(--ink); color: var(--white); }
+    .prepalarm::before { content: ''; position: absolute; width: 420px; height: 420px; right: -160px; top: -180px; border-radius: 50%; background: radial-gradient(circle, rgba(255,38,0,.35), rgba(255,38,0,0) 65%); }
+    .pa-top { position: relative; display: grid; gap: 1.4rem; margin-bottom: 1.5rem; }
+    .pa-brand { display: flex; gap: 1rem; align-items: center; }
+    .pa-brand img { border-radius: 14px; box-shadow: 0 10px 24px -8px rgba(255,80,40,.6); }
+    .pa-brand h3 { margin: 0; }
+    .prepalarm .kicker { color: #ff9a80; }
+    .pa-alerts { display: grid; gap: .5rem; }
+    .pa-alert { display: flex; align-items: center; gap: .75rem; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); border-radius: 14px; padding: .6rem .85rem; font-size: .86rem; color: rgba(255,255,255,.88); backdrop-filter: blur(6px); }
+    .pa-alert b { flex: none; font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; padding: .2rem .5rem; border-radius: 999px; }
+    .pa-alert.t1 b { background: rgba(255,255,255,.14); }
+    .pa-alert.t2 b { background: #f7702d; }
+    .pa-alert.t3 { background: rgba(255,38,0,.18); border-color: rgba(255,90,60,.55); }
+    .pa-alert.t3 b { background: var(--red); }
+    .pa-alert.t3 { animation: alarm 2.4s ease-in-out infinite; }
+    @keyframes alarm { 0%, 100% { box-shadow: 0 0 0 0 rgba(255,38,0,0); } 50% { box-shadow: 0 0 0 6px rgba(255,38,0,.18); } }
+    .prepalarm p { color: rgba(255,255,255,.75); position: relative; }
+    .pa-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; margin-bottom: 1.4rem; position: relative; }
+    .pa-stats div { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 14px; padding: .75rem .85rem; }
+    .pa-stats strong { display: block; font-family: var(--display); font-weight: var(--display-weight); font-size: 1.4rem; line-height: 1.1; }
+    .pa-stats span { display: block; font-size: .78rem; line-height: 1.3; margin-top: .2rem; color: rgba(255,255,255,.65); }
+    .prepalarm .foot { border-color: rgba(255,255,255,.12); position: relative; }
+    .prepalarm .stack { color: rgba(255,255,255,.6); }
+    .prepalarm .link-arrow { color: #ff9a80; }
+    @media (max-width: 900px) { .product-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 480px) { .feats { grid-template-columns: 1fr; } .pa-stats strong { font-size: 1.15rem; } }
+
+    /* ── Vergelijking ── */
+    .compare { border-radius: 24px; overflow: hidden; border: 1px solid var(--line); background: var(--white); box-shadow: var(--shadow); }
+    .compare-row { display: grid; grid-template-columns: 1fr 1.25fr 1.25fr; }
+    .compare-row > div { padding: 1.15rem 1.5rem; display: flex; gap: .7rem; align-items: flex-start; font-size: .96rem; }
+    .compare-row + .compare-row { border-top: 1px solid var(--line); }
+    .compare-row > div:first-child { font-weight: 600; }
+    .compare-row > div:nth-child(2) { color: var(--muted); }
+    .compare-row > div:nth-child(3) { background: #fff7f4; font-weight: 500; }
+    .compare-head > div { font-family: var(--display); font-weight: 700; font-size: 1.05rem; padding-top: 1.4rem !important; padding-bottom: 1.4rem !important; }
+    .compare-head > div:nth-child(3) { background: var(--ink) !important; color: var(--white); align-items: center; }
+    .compare-head img { height: 22px; filter: brightness(0) invert(1); }
+    .logo-inv { position: relative; display: inline-block; line-height: 0; }
+    .logo-inv::after { content: ''; position: absolute; left: 41.9%; top: 0; width: 4.1%; height: 16%; border-radius: 50%; background: var(--red); }
+    .x, .v { flex: none; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; margin-top: 1px; }
+    .x { background: var(--mist); color: var(--muted); }
+    .v { background: var(--red); color: var(--white); }
+    @media (max-width: 760px) {
+      .compare-row { grid-template-columns: 1fr; }
+      .compare-head { display: none; }
+      .compare-row > div:first-child { padding-bottom: .2rem; font-family: var(--display); font-size: 1.05rem; }
+      .compare-row > div:nth-child(2) { padding-block: .4rem; }
+      .compare-row > div:nth-child(3) { margin: .4rem 1rem 1rem; border-radius: 12px; }
     }
 
-    .lead {
-      font-size: 1.05rem;
-      color: var(--muted);
-      max-width: 700px;
-      margin-bottom: 2.5rem;
+    /* ── Stack marquee ── */
+    .stack-band { padding: clamp(3.5rem, 6vw, 5rem) 0; overflow: hidden; }
+    .stack-band .label { text-align: center; font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; font-weight: 600; color: var(--muted); margin-bottom: 1.6rem; }
+    .marquee { display: flex; gap: .75rem; width: max-content; animation: marquee 48s linear infinite; }
+    .marquee + .marquee { margin-top: .75rem; animation-direction: reverse; animation-duration: 56s; }
+    .stack-band:hover .marquee { animation-play-state: paused; }
+    .chip { display: inline-flex; align-items: center; gap: .55rem; white-space: nowrap; background: var(--white); border: 1px solid var(--line); padding: .7rem 1.15rem; border-radius: 999px; font-weight: 600; font-size: .95rem; }
+    .chip i { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); opacity: .25; }
+    .chip.hot i { background: var(--red); opacity: 1; }
+    .marquee-mask { -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+
+    /* ── Inzichten ── */
+    .insights { background: var(--white); }
+    .insight-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .insight { border-radius: 22px; border: 1px solid var(--line); padding: 1.75rem; display: flex; flex-direction: column; background: var(--paper); text-decoration: none; transition: transform .3s, box-shadow .3s; }
+    .insight:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .insight .meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+    .insight .meta span:first-child { color: var(--red-ink); }
+    .insight .meta span:last-child { color: var(--muted); background: var(--mist); padding: .25rem .6rem; border-radius: 999px; letter-spacing: .02em; text-transform: none; }
+    .insight h3 { font-size: 1.28rem; margin-bottom: .75rem; }
+    .insight p { color: var(--muted); font-size: .95rem; margin-bottom: 1.5rem; }
+    .insight .link-arrow { margin-top: auto; }
+    .section-foot { display: flex; justify-content: space-between; align-items: end; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 3rem; }
+    .section-foot .section-head { margin-bottom: 0; }
+    @media (max-width: 960px) { .insight-grid { grid-template-columns: 1fr; } }
+
+    /* ── CTA ── */
+    .cta { padding: clamp(4rem, 8vw, 6rem) 0; }
+    .cta-card {
+      position: relative; overflow: hidden; border-radius: 36px; background: var(--red); color: var(--ink);
+      padding: clamp(1.25rem, 6vw, 4.5rem); display: grid; grid-template-columns: 1.4fr 1fr; gap: 2.5rem; align-items: center;
     }
-
-    /* ── ABOUT ── */
-    #over { background: var(--light); }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: start;
-    }
-
-    @media (max-width: 680px) { .about-grid { grid-template-columns: 1fr; } }
-
-    .about-text p { margin-bottom: 1rem; color: var(--text); }
-
-    .skills-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .5rem;
-      margin-top: 1rem;
-    }
-
-    .skill-tag {
-      background: var(--navy);
-      color: var(--white);
-      font-size: .78rem;
-      font-weight: 600;
-      padding: .3rem .75rem;
-      border-radius: 20px;
-    }
-
-    .info-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem;
-    }
-
-    .info-card h3 {
-      color: var(--navy);
-      font-size: 1rem;
-      margin-bottom: .75rem;
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-    }
-
-    .info-card ul { list-style: none; }
-
-    .info-card ul li {
-      padding: .4rem 0;
-      border-bottom: 1px solid var(--border);
-      font-size: .9rem;
-      color: var(--text);
-    }
-
-    .info-card ul li:last-child { border-bottom: none; }
-
-    .info-card ul li strong { color: var(--navy); }
-
-    .info-card + .info-card { margin-top: 1.5rem; }
-
-    /* ── SERVICES ── */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .service-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.75rem;
-      transition: box-shadow .2s, transform .2s;
-    }
-
-    .service-card:hover {
-      box-shadow: 0 8px 30px rgba(13,14,74,.1);
-      transform: translateY(-3px);
-    }
-
-    .service-icon {
-      width: 48px;
-      height: 48px;
-      background: rgba(13,14,74,.08);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.4rem;
-      margin-bottom: 1rem;
-    }
-
-    .service-card h3 { color: var(--navy); margin-bottom: .5rem; font-size: 1rem; }
-    .service-card p  { font-size: .9rem; color: var(--muted); }
-
-    /* ── TAFELTOUR ── */
-    #tafeltour {
-      background: #111118;
-      color: var(--white);
-      padding-bottom: 5rem;
-    }
-
-    .tt-header {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    .tt-logo {
-      height: 220px;
-      margin-bottom: 1rem;
-    }
-
-    .tt-tagline {
-      font-size: 1.1rem;
-      color: rgba(255,255,255,.65);
-      max-width: 540px;
-      margin: 0 auto;
-    }
-
-    /* Steps */
-    .tt-steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      margin-bottom: 3.5rem;
-      position: relative;
-    }
-
-    /* Lijn door de middelpunten van de bollen: border (1px) + padding (1.75rem)
-       + halve bol (24px) − halve lijndikte (1px); kolommidden = (100% − 2 gaps) / 6 */
-    .tt-steps::before {
-      content: '';
-      position: absolute;
-      top: calc(1.75rem + 24px);
-      left: calc((100% - 3rem) / 6);
-      right: calc((100% - 3rem) / 6);
-      height: 2px;
-      background: linear-gradient(90deg, #f5891e 0%, #f5891e 100%);
-      opacity: .3;
-    }
-
-    @media (max-width: 660px) {
-      .tt-steps { grid-template-columns: 1fr; }
-      .tt-steps::before { display: none; }
-    }
-
-    .tt-step {
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 14px;
-      padding: 1.75rem 1.5rem;
-      text-align: center;
-    }
-
-    .tt-step-num {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: #f5891e;
-      color: var(--white);
-      font-size: 1.2rem;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .tt-step h3 { color: #f5891e; font-size: .95rem; margin-bottom: .5rem; }
-    .tt-step p  { font-size: .88rem; color: rgba(255,255,255,.65); }
-
-    /* Info + payment grid */
-    .tafeltour-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: start;
-    }
-
-    @media (max-width: 700px) { .tafeltour-grid { grid-template-columns: 1fr; } }
-
-    .tafeltour-info p {
-      color: rgba(255,255,255,.75);
-      margin-bottom: 1rem;
-      font-size: .95rem;
-    }
-
-    .tafeltour-info ul {
-      list-style: none;
-      margin: 0 0 1.5rem;
-    }
-
-    .tafeltour-info ul li {
-      padding: .45rem 0;
-      color: rgba(255,255,255,.85);
-      font-size: .9rem;
-      border-bottom: 1px solid rgba(255,255,255,.07);
-    }
-
-    .tafeltour-info ul li:last-child { border-bottom: none; }
-
-    .tafeltour-info ul li::before {
-      content: '✓ ';
-      color: #f5891e;
-      font-weight: 700;
-    }
-
-    .tt-for-org {
-      background: rgba(245,137,30,.1);
-      border: 1px solid rgba(245,137,30,.25);
-      border-radius: 10px;
-      padding: 1rem 1.25rem;
-      margin-top: 1.25rem;
-      font-size: .85rem;
-      color: rgba(255,255,255,.7);
-    }
-
-    .tt-for-org strong { color: #f5891e; display: block; margin-bottom: .35rem; }
-    .tt-for-org a { color: #f5891e; font-weight: 600; }
-
-    /* Payment card */
-    .payment-card {
-      background: var(--white);
-      border-radius: 16px;
-      padding: 2rem;
-      color: var(--text);
-    }
-
-    .payment-card h3 {
-      color: var(--navy);
-      font-size: 1.1rem;
-      margin-bottom: .5rem;
-    }
-
-    .price-intro {
-      font-size: .88rem;
-      color: var(--muted);
-      margin-bottom: 1.25rem;
-    }
-
-    .price-option {
-      border: 2px solid var(--border);
-      border-radius: 10px;
-      padding: 1rem 1.25rem;
-      margin-bottom: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .price-option.featured {
-      border-color: #f5891e;
-      background: rgba(245,137,30,.05);
-    }
-
-    .price-option .price-label { font-size: .9rem; color: var(--text); }
-    .price-option .price-label strong { display: block; color: var(--navy); }
-    .price-option .price-label .badge {
-      display: inline-block;
-      background: #f5891e;
-      color: white;
-      font-size: .68rem;
-      font-weight: 700;
-      padding: .1rem .5rem;
-      border-radius: 20px;
-      margin-left: .35rem;
-      vertical-align: middle;
-    }
-    .price-option .price-label .badge.soon { background: var(--muted); }
-    .price-option .price-amount { font-size: 1.1rem; font-weight: 700; color: var(--navy); text-align: right; white-space: nowrap; }
-    .price-option .price-sub { font-size: .72rem; color: var(--muted); text-align: right; white-space: nowrap; }
-
-    .price-footnote {
-      font-size: .78rem;
-      color: var(--muted);
-      margin-bottom: 1rem;
-    }
-
-    .pay-btn {
-      width: 100%;
-      padding: .9rem;
-      background: #f5891e;
-      color: var(--white);
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 700;
-      text-decoration: none;
-      cursor: pointer;
-      margin-top: .5rem;
-      transition: background .2s, transform .15s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: .5rem;
-    }
-
-    .pay-btn:hover { background: #d97310; transform: translateY(-1px); }
-
-    .mollie-note {
-      text-align: center;
-      font-size: .75rem;
-      color: var(--muted);
-      margin-top: .75rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: .4rem;
-    }
-
-    /* ── EXPERIENCE ── */
-    #ervaring { background: var(--light); }
-
-    .timeline { position: relative; }
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 11px;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: var(--border);
-    }
-
-    .timeline-item {
-      position: relative;
-      padding-left: 2.5rem;
-      margin-bottom: 1.75rem;
-    }
-
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: 4px;
-      top: 6px;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: var(--red);
-      border: 2px solid var(--white);
-      box-shadow: 0 0 0 2px var(--red);
-    }
-
-    .timeline-item h3 { color: var(--navy); font-size: .95rem; margin-bottom: .2rem; }
-    .timeline-item .period { font-size: .8rem; color: var(--red); font-weight: 600; margin-bottom: .4rem; }
-    .timeline-item p { font-size: .88rem; color: var(--muted); }
-
-    /* ── CONTACT ── */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-    }
-
-    @media (max-width: 640px) { .contact-grid { grid-template-columns: 1fr; } }
-
-    .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem;
-      background: var(--light);
-      border-radius: 10px;
-      text-decoration: none;
-      color: var(--text);
-      transition: box-shadow .2s;
-      margin-bottom: 1rem;
-    }
-
-    .contact-item:hover { box-shadow: 0 4px 15px rgba(13,14,74,.1); }
-
-    .contact-icon {
-      width: 44px;
-      height: 44px;
-      background: var(--navy);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--white);
-      font-size: 1.1rem;
-      flex-shrink: 0;
-    }
-
-    .contact-item strong { display: block; color: var(--navy); font-size: .85rem; }
-    .contact-item span { font-size: .9rem; color: var(--text); }
-
-    .kvk-info {
-      background: var(--light);
-      border-radius: 10px;
-      padding: 1.5rem;
-    }
-
-    .kvk-info h3 { color: var(--navy); margin-bottom: 1rem; font-size: .95rem; }
-    .kvk-info dl { display: grid; grid-template-columns: auto 1fr; gap: .35rem 1rem; }
-    .kvk-info dt { font-size: .85rem; color: var(--muted); }
-    .kvk-info dd { font-size: .85rem; color: var(--text); font-weight: 500; }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--navy);
-      color: rgba(255,255,255,.65);
-      text-align: center;
-      padding: 2rem;
-      font-size: .85rem;
-    }
-
-    footer a { color: var(--red); text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
-
-    footer .footer-logo img {
-      height: 28px;
-      filter: brightness(0) invert(1) opacity(.7);
-      margin-bottom: .75rem;
-    }
-
-    /* ── UTILS ── */
-    @media (max-width: 700px) {
-      nav ul { display: none; }
-      section { padding: 3rem 1.25rem; }
+    .cta-card::before { content: ''; position: absolute; width: 560px; height: 560px; right: -160px; bottom: -280px; border-radius: 50%; border: 70px solid rgba(255,255,255,.12); }
+    .cta-card::after { content: ''; position: absolute; width: 120px; height: 120px; right: 22%; top: -50px; border-radius: 50%; background: rgba(0,0,65,.1); }
+    .cta-card h2 { font-size: clamp(2rem, 4.2vw, 3.3rem); margin-bottom: 1rem; position: relative; z-index: 1; }
+    .cta-card p { font-size: 1.12rem; max-width: 560px; position: relative; z-index: 1; color: #1a0a1f; }
+    .cta-side { position: relative; z-index: 1; background: var(--white); border-radius: 24px; padding: 1.75rem; box-shadow: 0 24px 48px -24px rgba(0,0,65,.5); }
+    .cta-side .who { display: flex; gap: .9rem; align-items: center; margin-bottom: 1.25rem; }
+    .cta-side .who .avatar::after { border-color: var(--white); }
+    .cta-side .who strong { display: block; font-size: 1.02rem; }
+    .cta-side .who span { font-size: .88rem; color: var(--muted); }
+    .cta-side .btn { width: 100%; justify-content: space-between; }
+    .cta-side .mail { display: block; text-align: center; margin-top: .9rem; font-size: .9rem; color: var(--muted); text-decoration: none; }
+    .cta-side .mail:hover { color: var(--ink); text-decoration: underline; }
+    .cta-side ul { list-style: none; display: grid; gap: .45rem; margin: 1.25rem 0 0; padding-top: 1.1rem; border-top: 1px solid var(--line); font-size: .88rem; color: var(--ink-2); }
+    .cta-side li { display: flex; gap: .55rem; align-items: center; }
+    .cta-side li svg { color: var(--red); flex: none; }
+    @media (max-width: 860px) { .cta-card { grid-template-columns: 1fr; } .cta-card > div:first-child { padding: 1.25rem .5rem 0; } }
+    @media (max-width: 420px) { .cta-side { padding: 1.4rem 1.1rem; } .cta-side .btn { font-size: .93rem; padding-left: 1.1rem; } }
+
+    /* ── Footer ── */
+    footer.site { background: var(--ink); color: rgba(255,255,255,.7); padding: 4.5rem 0 2rem; font-size: .92rem; }
+    .foot-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.2fr; gap: 2.5rem; }
+    .foot-grid img { height: 30px; width: auto; filter: brightness(0) invert(1); }
+    .foot-grid .logo-inv { margin-bottom: 1.1rem; }
+    .foot-grid p { max-width: 320px; }
+    .foot-grid h4 { color: var(--white); font-family: var(--display); font-size: 1rem; margin-bottom: 1rem; }
+    .foot-grid ul { list-style: none; display: grid; gap: .55rem; }
+    .foot-grid a { text-decoration: none; }
+    .foot-grid a:hover { color: var(--white); }
+    .foot-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-top: 3.5rem; padding-top: 1.75rem; border-top: 1px solid rgba(255,255,255,.12); font-size: .82rem; }
+    .foot-bottom a { text-decoration: none; }
+    .foot-bottom a:hover { color: var(--white); }
+    .foot-bottom .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--red); margin-right: .45rem; }
+    @media (max-width: 860px) { .foot-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 520px) { .foot-grid { grid-template-columns: 1fr; } }
+
+    /* ── Animaties ── */
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+    @keyframes twinkle { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(.6); opacity: .55; } }
+    @keyframes pulse { 0%, 100% { transform: scale(1); opacity: .9; } 50% { transform: scale(1.12); opacity: 1; } }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+    @keyframes ping { 0% { transform: scale(1); opacity: .9; } 100% { transform: scale(2.6); opacity: 0; } }
+    .iso-art .fl { animation: float 5s ease-in-out infinite; }
+    .iso-art .tw { animation: twinkle 3.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    .iso-art .pulse { animation: pulse 3s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    .iso-art .blink { animation: blink 1.6s ease-in-out infinite; }
+    .iso-art .ping { animation: ping 1.8s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+
+    @keyframes rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+    .hero-load { animation: rise .9s cubic-bezier(.2,.7,.2,1) both; }
+    .hero-load[data-d="1"] { animation-delay: .08s; }
+    .hero-load[data-d="2"] { animation-delay: .16s; }
+    .hero-load[data-d="3"] { animation-delay: .24s; }
+    .js .reveal { opacity: 0; transform: translateY(22px); transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); }
+    .js .reveal.in { opacity: 1; transform: none; }
+    .js .reveal[data-d="1"] { transition-delay: .08s; }
+    .js .reveal[data-d="2"] { transition-delay: .16s; }
+    .js .reveal[data-d="3"] { transition-delay: .24s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .hero h1 .mark path { stroke-dashoffset: 0; }
+      .js .reveal { opacity: 1; transform: none; }
     }
   </style>
+  <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 
-<!-- NAVIGATION -->
-<nav>
-  <div class="logo">
-    <a href="#top"><img src="logo.png" alt="Esitec"></a>
-  </div>
-  <ul>
-    <li><a href="#over">Over</a></li>
-    <li><a href="#diensten">Diensten</a></li>
-    <li><a href="#tafeltour">TafelTour</a></li>
-    <li><a href="#ervaring">Ervaring</a></li>
-    <li><a href="#contact" class="cta-btn">Contact</a></li>
-  </ul>
-</nav>
+<!-- NAVIGATIE -->
+<div class="wrap nav-shell">
+  <nav class="nav" aria-label="Hoofdmenu">
+    <a class="logo" href="#top" aria-label="Esitec, naar boven"><img src="logo.png" alt="Esitec" width="110" height="28"></a>
+    <ul class="nav-links">
+      <li><a href="#diensten">Diensten</a></li>
+      <li><a href="#aanpak">Aanpak</a></li>
+      <li><a href="#cases">Cases</a></li>
+      <li><a href="#producten">Side projects</a></li>
+      <li><a href="#waarom">Waarom Esitec</a></li>
+    </ul>
+    <a class="btn btn-primary" href="#contact">Plan een gesprek <span class="arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menu openen">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7h16M3 15h10"/></svg>
+    </button>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="#diensten">Diensten</a>
+      <a href="#aanpak">Aanpak</a>
+      <a href="#cases">Cases</a>
+      <a href="#producten">Side projects</a>
+      <a href="#waarom">Waarom Esitec</a>
+      <a href="#inzichten">Inzichten</a>
+      <a class="btn btn-primary" href="#contact">Plan een gesprek <span class="arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
+    </div>
+  </nav>
+</div>
+
+<main id="top">
 
 <!-- HERO -->
-<header class="hero" id="top">
-  <img src="logo.png" alt="Esitec" class="hero-logo">
-  <h1>Software Development &amp; <span>Online Diensten</span></h1>
-  <p class="tagline">
-    Maatwerk webapplicaties, integraties en AI-oplossingen voor web en cloud –
-    als senior full-stack developer met ruim 20 jaar ervaring.
-  </p>
-  <div class="hero-btns">
-    <a href="#tafeltour" class="btn btn-primary">Bekijk TafelTour</a>
-    <a href="#contact" class="btn btn-outline">Neem contact op</a>
-  </div>
-</header>
-
-<!-- OVER -->
-<section id="over">
-  <div class="section-inner">
-    <div class="section-label">Over Esitec</div>
-    <h2>Eugène Spaan – Senior Full Stack Developer</h2>
-    <div class="about-grid">
-      <div class="about-text">
-        <p>
-          Esitec is de eenmanszaak van Eugène Spaan, gevestigd in Nijmegen.
-          Als senior full-stack developer met ruim 20 jaar ervaring bouw en integreer ik
-          bedrijfskritische webapplicaties met TypeScript, Angular, Node.js en React/Next.js –
-          op AWS, Azure en Firebase.
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow hero-load">AI-specialist · webapps, apps &amp; integraties</div>
+        <h1 class="hero-load" data-d="1">Slimme software die je systemen laat
+          <span class="mark">samenwerken<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 14 C 70 4, 170 2, 297 10" fill="none" stroke="#ff2600" stroke-width="6" stroke-linecap="round"/></svg></span>
+        </h1>
+        <p class="lead hero-load" data-d="2">
+          Esitec bouwt professionele webapplicaties en apps, en verbindt je systemen tot één geheel,
+          met AI precies daar waar het waarde toevoegt. AI-first gebouwd, voor <strong class="hl">25% van de traditionele ontwikkelkosten</strong>.
         </p>
-        <p>
-          Mijn kracht ligt in enterprise-integraties, REST API's en service-georiënteerde/MACH-architecturen,
-          met oog voor technische standaarden, onderhoudbaarheid en code reviews. Ik werk zelfstandig
-          én als teamspeler in (internationale) Agile/Scrum-teams.
-        </p>
-        <p>
-          Recent werk omvat productie-LLM-integraties, waaronder een server-side AI-agent op
-          Anthropic Claude, en dagelijkse ontwikkeling met Claude Code als AI pair programmer.
-          Naast freelance opdrachten ontwikkel ik eigen SaaS-producten, waaronder <strong>TafelTour</strong>.
-        </p>
-        <div class="skills-list">
-          <span class="skill-tag">TypeScript</span>
-          <span class="skill-tag">Angular</span>
-          <span class="skill-tag">Node.js</span>
-          <span class="skill-tag">React / Next.js</span>
-          <span class="skill-tag">RxJS / NgRx</span>
-          <span class="skill-tag">C#.NET</span>
-          <span class="skill-tag">AWS</span>
-          <span class="skill-tag">Azure / Azure DevOps</span>
-          <span class="skill-tag">Firebase</span>
-          <span class="skill-tag">REST API</span>
-          <span class="skill-tag">SQL / NoSQL</span>
-          <span class="skill-tag">Docker</span>
-          <span class="skill-tag">Anthropic Claude</span>
+        <div class="hero-ctas hero-load" data-d="3">
+          <a class="btn btn-primary" href="#contact">Plan een kennismaking <span class="arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
+          <a class="btn btn-ghost" href="#sneller">Hoe kan dat?</a>
+        </div>
+        <div class="hero-meta hero-load" data-d="3">
+          <span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3 3 7-7"/></svg>Reactie binnen één werkdag</span>
+          <span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3 3 7-7"/></svg>Vrijblijvend adviesgesprek</span>
+          <span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3 3 7-7"/></svg>Nederlands &amp; Engels</span>
         </div>
       </div>
-      <div>
-        <div class="info-card">
-          <h3>🏢 Bedrijfsgegevens</h3>
-          <ul>
-            <li><strong>Naam</strong> Esitec</li>
-            <li><strong>Eigenaar</strong> Eugène Spaan</li>
-            <li><strong>Type</strong> Eenmanszaak</li>
-            <li><strong>Vestiging</strong> Nijmegen, Nederland</li>
-            <li><strong>Opgericht</strong> 1994</li>
-          </ul>
+      <div class="hero-art hero-load" data-d="2">
+        <div class="disc" aria-hidden="true"></div>
+        <svg class="iso-art" viewBox="-300 -112 600 444" role="img" aria-labelledby="hero-art-t"><title id="hero-art-t">Isometrische illustratie: CRM, ERP, webshop en app verbonden met een centrale AI-kern</title><defs>
+  <radialGradient id="orb" cx="36%" cy="32%" r="75%">
+    <stop offset="0" stop-color="#ff8a6e"/><stop offset=".45" stop-color="#ff2600"/><stop offset="1" stop-color="#b81b00"/>
+  </radialGradient>
+  <radialGradient id="glow"><stop offset="0" stop-color="#ff2600" stop-opacity=".35"/><stop offset="1" stop-color="#ff2600" stop-opacity="0"/></radialGradient>
+  <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff2600" stop-opacity=".22"/><stop offset="1" stop-color="#ff2600" stop-opacity="0"/></linearGradient>
+</defs><g stroke="#000041" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path transform="translate(-262 -44) scale(1)" d="M8 34 H74 A15 15 0 0 0 70 6 A22 22 0 0 0 30 2 A17 17 0 0 0 8 34 Z" fill="#fff" stroke="#000041" stroke-width="1.60"/><path transform="translate(176 -86) scale(0.8)" d="M8 34 H74 A15 15 0 0 0 70 6 A22 22 0 0 0 30 2 A17 17 0 0 0 8 34 Z" fill="#fff" stroke="#000041" stroke-width="2.00"/><g transform="translate(-140 -74) scale(1)"><path class="tw" style="animation-delay:0s" d="M0 -10 C1 -2 2 -1 10 0 C2 1 1 2 0 10 C-1 2 -2 1 -10 0 C-2 -1 -1 -2 0 -10 Z" fill="#ff2600" stroke="#000041" stroke-width="1.40"/></g><g transform="translate(132 -40) scale(0.7)"><path class="tw" style="animation-delay:1.2s" d="M0 -10 C1 -2 2 -1 10 0 C2 1 1 2 0 10 C-1 2 -2 1 -10 0 C-2 -1 -1 -2 0 -10 Z" fill="#fff" stroke="#000041" stroke-width="2.00"/></g><g transform="translate(258 70) scale(0.8)"><path class="tw" style="animation-delay:0.6s" d="M0 -10 C1 -2 2 -1 10 0 C2 1 1 2 0 10 C-1 2 -2 1 -10 0 C-2 -1 -1 -2 0 -10 Z" fill="#ff2600" stroke="#000041" stroke-width="1.75"/></g><g transform="translate(-268 128) scale(0.6)"><path class="tw" style="animation-delay:1.8s" d="M0 -10 C1 -2 2 -1 10 0 C2 1 1 2 0 10 C-1 2 -2 1 -10 0 C-2 -1 -1 -2 0 -10 Z" fill="#fff" stroke="#000041" stroke-width="2.33"/></g><g transform="translate(-210 40)"><g class="fl" style="animation-delay:0s"><polygon points="-15.6,-9.0 0.0,0.0 0.0,18.0 -15.6,9.0" fill="#eef0fb" /><polygon points="15.6,-9.0 0.0,0.0 0.0,18.0 15.6,9.0" fill="#d6d9ef" /><polygon points="0.0,-18.0 15.6,-9.0 0.0,0.0 -15.6,-9.0" fill="#ff2600" /></g></g><g transform="translate(200 14)"><g class="fl" style="animation-delay:1.4s"><polygon points="-12.1,-7.0 0.0,0.0 0.0,14.0 -12.1,7.0" fill="#eef0fb" /><polygon points="12.1,-7.0 0.0,0.0 0.0,14.0 12.1,7.0" fill="#d6d9ef" /><polygon points="0.0,-14.0 12.1,-7.0 0.0,0.0 -12.1,-7.0" fill="#fff" /></g></g><polygon points="-277.1,146.0 0.0,306.0 0.0,320.0 -277.1,160.0" fill="#ffd9cf" /><polygon points="277.1,146.0 0.0,306.0 0.0,320.0 277.1,160.0" fill="#ffb8a5" /><polygon points="0.0,-14.0 277.1,146.0 0.0,306.0 -277.1,146.0" fill="#fff" /><g stroke-opacity=".07" stroke-width="1"><line x1="27.7" y1="2.0" x2="-249.4" y2="162.0"/><line x1="-27.7" y1="2.0" x2="249.4" y2="162.0"/><line x1="55.4" y1="18.0" x2="-221.7" y2="178.0"/><line x1="-55.4" y1="18.0" x2="221.7" y2="178.0"/><line x1="83.1" y1="34.0" x2="-194.0" y2="194.0"/><line x1="-83.1" y1="34.0" x2="194.0" y2="194.0"/><line x1="110.9" y1="50.0" x2="-166.3" y2="210.0"/><line x1="-110.9" y1="50.0" x2="166.3" y2="210.0"/><line x1="138.6" y1="66.0" x2="-138.6" y2="226.0"/><line x1="-138.6" y1="66.0" x2="138.6" y2="226.0"/><line x1="166.3" y1="82.0" x2="-110.9" y2="242.0"/><line x1="-166.3" y1="82.0" x2="110.9" y2="242.0"/><line x1="194.0" y1="98.0" x2="-83.1" y2="258.0"/><line x1="-194.0" y1="98.0" x2="83.1" y2="258.0"/><line x1="221.7" y1="114.0" x2="-55.4" y2="274.0"/><line x1="-221.7" y1="114.0" x2="55.4" y2="274.0"/><line x1="249.4" y1="130.0" x2="-27.7" y2="290.0"/><line x1="-249.4" y1="130.0" x2="27.7" y2="290.0"/></g><ellipse cx="0.0" cy="146.0" rx="122.5" ry="70.7" fill="none" stroke="#ff2600" stroke-width="2" stroke-dasharray="1 9" stroke-opacity=".9"/><path d="M67.5 107.0 L24.2 132.0" stroke="#ff2600" stroke-opacity=".18" stroke-width="8" fill="none"/><path d="M67.5 107.0 L24.2 132.0" stroke="#000041" stroke-width="2.2" stroke-dasharray="0 7" fill="none"/><circle r="4.5" fill="#ff2600" stroke="#fff" stroke-width="1.5" opacity="0"><animateMotion dur="2.4s" begin="0.0s" repeatCount="indefinite" path="M67.5 107.0 L24.2 132.0"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.8;1" dur="2.4s" begin="0.0s" repeatCount="indefinite"/></circle><circle r="4.5" fill="#ff2600" stroke="#fff" stroke-width="1.5" opacity="0"><animateMotion dur="2.4s" begin="-1.2s" repeatCount="indefinite" path="M67.5 107.0 L24.2 132.0"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.8;1" dur="2.4s" begin="-1.2s" repeatCount="indefinite"/></circle><path d="M-67.5 107.0 L-24.2 132.0" stroke="#ff2600" stroke-opacity=".18" stroke-width="8" fill="none"/><path d="M-67.5 107.0 L-24.2 132.0" stroke="#000041" stroke-width="2.2" stroke-dasharray="0 7" fill="none"/><circle r="4.5" fill="#ff2600" stroke="#fff" stroke-width="1.5" opacity="0"><animateMotion dur="2.4s" begin="-0.55s" repeatCount="indefinite" path="M-67.5 107.0 L-24.2 132.0"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.8;1" dur="2.4s" begin="-0.55s" repeatCount="indefinite"/></circle><circle r="4.5" fill="#ff2600" stroke="#fff" stroke-width="1.5" opacity="0"><animateMotion dur="2.4s" begin="-1.75s" repeatCount="indefinite" path="M-67.5 107.0 L-24.2 132.0"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.8;1" dur="2.4s" begin="-1.75s" repeatCount="indefinite"/></circle><path d="M-67.5 185.0 L-24.2 160.0" stroke="#ff2600" stroke-opacity=".18" stroke-width="8" fill="none"/><path d="M-67.5 185.0 L-24.2 160.0" stroke="#000041" stroke-width="2.2" stroke-dasharray="0 7" fill="none"/><circle r="4.5" fill="#ff2600" stroke="#fff" stroke-width="1.5" opacity="0"><animateMotion dur="2.4s" begin="-1.1s" repeatCount="indefinite" path="M-67.5 185.0 L-24.2 160.0"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.8;1" dur="2.4s" begin="-1.1s" repeatCount="indefinite"/></circle><circle r="4.5" fill="#ff2600" stroke="#fff" stroke-width="1.5" opacity="0"><animateMotion dur="2.4s" begin="-2.3s" repeatCount="indefinite" path="M-67.5 185.0 L-24.2 160.0"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.8;1" dur="2.4s" begin="-2.3s" repeatCount="indefinite"/></circle><path d="M77.9 191.0 L24.2 160.0" stroke="#ff2600" stroke-opacity=".18" stroke-width="8" fill="none"/><path d="M77.9 191.0 L24.2 160.0" stroke="#000041" stroke-width="2.2" stroke-dasharray="0 7" fill="none"/><circle r="4.5" fill="#ff2600" stroke="#fff" stroke-width="1.5" opacity="0"><animateMotion dur="2.4s" begin="-1.6500000000000001s" repeatCount="indefinite" path="M77.9 191.0 L24.2 160.0" keyPoints="1;0" keyTimes="0;1" calcMode="linear"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.8;1" dur="2.4s" begin="-1.6500000000000001s" repeatCount="indefinite"/></circle><circle r="4.5" fill="#ff2600" stroke="#fff" stroke-width="1.5" opacity="0"><animateMotion dur="2.4s" begin="-2.85s" repeatCount="indefinite" path="M77.9 191.0 L24.2 160.0" keyPoints="1;0" keyTimes="0;1" calcMode="linear"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.8;1" dur="2.4s" begin="-2.85s" repeatCount="indefinite"/></circle><polygon points="-150.7,74.0 -95.3,106.0 -95.3,123.0 -150.7,91.0" fill="#eef0fb" /><polygon points="-39.8,74.0 -95.3,106.0 -95.3,123.0 -39.8,91.0" fill="#d6d9ef" /><polygon points="-95.3,42.0 -39.8,74.0 -95.3,106.0 -150.7,74.0" fill="#fff" /><g transform="matrix(0.8660,0.5,0,1,-150.7,74.0)" stroke="none"><circle cx="54" cy="8.5" r="2.6" fill="#ff2600" class="blink" style="animation-delay:0.0s"/><rect x="8" y="6.5" width="26" height="4" rx="2" fill="#000041" opacity=".18"/></g><polygon points="-150.7,53.0 -95.3,85.0 -95.3,102.0 -150.7,70.0" fill="#eef0fb" /><polygon points="-39.8,53.0 -95.3,85.0 -95.3,102.0 -39.8,70.0" fill="#d6d9ef" /><polygon points="-95.3,21.0 -39.8,53.0 -95.3,85.0 -150.7,53.0" fill="#fff" /><g transform="matrix(0.8660,0.5,0,1,-150.7,53.0)" stroke="none"><circle cx="54" cy="8.5" r="2.6" fill="#ff2600" class="blink" style="animation-delay:0.4s"/><rect x="8" y="6.5" width="26" height="4" rx="2" fill="#000041" opacity=".18"/></g><polygon points="-150.7,32.0 -95.3,64.0 -95.3,81.0 -150.7,49.0" fill="#eef0fb" /><polygon points="-39.8,32.0 -95.3,64.0 -95.3,81.0 -39.8,49.0" fill="#d6d9ef" /><polygon points="-95.3,0.0 -39.8,32.0 -95.3,64.0 -150.7,32.0" fill="#fff" /><g transform="matrix(0.8660,0.5,0,1,-150.7,32.0)" stroke="none"><circle cx="54" cy="8.5" r="2.6" fill="#ff2600" class="blink" style="animation-delay:0.8s"/><rect x="8" y="6.5" width="26" height="4" rx="2" fill="#000041" opacity=".18"/></g><g transform="matrix(0.8660,-0.5,0,1,-95.3,64.0)" stroke="none"><text x="9" y="12.5" class="iso-t" font-size="10.5">CRM</text></g><polygon points="39.8,27.0 95.3,59.0 95.3,123.0 39.8,91.0" fill="#eef0fb" /><polygon points="150.7,27.0 95.3,59.0 95.3,123.0 150.7,91.0" fill="#d6d9ef" /><polygon points="95.3,-5.0 150.7,27.0 95.3,59.0 39.8,27.0" fill="#fff" /><g transform="matrix(0.8660,-0.5,0,1,95.3,59.0)" stroke="none"><rect x="9" y="8" width="11" height="7" rx="1" fill="#000041" opacity="0.16"/><rect x="26" y="8" width="11" height="7" rx="1" fill="#ff2600" opacity="1"/><rect x="43" y="8" width="11" height="7" rx="1" fill="#000041" opacity="0.16"/><rect x="9" y="21" width="11" height="7" rx="1" fill="#000041" opacity="0.16"/><rect x="26" y="21" width="11" height="7" rx="1" fill="#000041" opacity="0.16"/><rect x="43" y="21" width="11" height="7" rx="1" fill="#000041" opacity="0.16"/><rect x="9" y="34" width="11" height="7" rx="1" fill="#ff2600" opacity="1"/><rect x="26" y="34" width="11" height="7" rx="1" fill="#000041" opacity="0.16"/><rect x="43" y="34" width="11" height="7" rx="1" fill="#000041" opacity="0.16"/><rect x="9" y="47" width="11" height="7" rx="1" fill="#000041" opacity="0.16"/><rect x="26" y="47" width="11" height="7" rx="1" fill="#000041" opacity="0.16"/><rect x="43" y="47" width="11" height="7" rx="1" fill="#ff2600" opacity="1"/></g><g transform="matrix(0.8660,0.5,0,1,39.8,27.0)" stroke="none"><text x="9" y="22" class="iso-t" font-size="15">ERP</text><rect x="9" y="32" width="38" height="4" rx="2" fill="#000041" opacity=".18"/><rect x="9" y="41" width="26" height="4" rx="2" fill="#000041" opacity=".18"/></g><polygon points="-48.5,124.0 0.0,152.0 0.0,174.0 -48.5,146.0" fill="#eef0fb" /><polygon points="48.5,124.0 0.0,152.0 0.0,174.0 48.5,146.0" fill="#d6d9ef" /><polygon points="0.0,96.0 48.5,124.0 0.0,152.0 -48.5,124.0" fill="#fff" /><ellipse cx="0.0" cy="124.0" rx="24.5" ry="14.1" fill="none" stroke="#ff2600" stroke-width="2.4"/><polygon points="-24.0,124.0 24.0,124.0 14.0,70.0 -14.0,70.0" fill="url(#beam)" stroke="none"/><circle class="pulse" cx="0.0" cy="70.0" r="53" fill="url(#glow)" stroke="none"/><g transform="translate(0.0 70.0) rotate(-14)"><ellipse rx="49" ry="15" fill="none" stroke="#000041" stroke-opacity=".35" stroke-dasharray="3 5" stroke-width="1.4"/><circle r="3.5" fill="#000041" stroke="none"><animateMotion dur="5s" repeatCount="indefinite" path="M-49 0 a49 15 0 1 0 98 0 a49 15 0 1 0 -98 0"/></circle></g><circle cx="0.0" cy="70.0" r="28" fill="url(#orb)"/><ellipse cx="-9.8" cy="58.2" rx="9.0" ry="5.6" fill="#fff" fill-opacity=".55" stroke="none" transform="rotate(-30 -9.8 58.2)"/><polygon points="-150.7,157.0 -95.3,189.0 -95.3,233.0 -150.7,201.0" fill="#eef0fb" /><polygon points="-39.8,157.0 -95.3,189.0 -95.3,233.0 -39.8,201.0" fill="#d6d9ef" /><polygon points="-95.3,125.0 -39.8,157.0 -95.3,189.0 -150.7,157.0" fill="#fff" /><g transform="matrix(0.8660,0.5,0,1,-150.7,157.0)"><g stroke="none"><rect x="0" y="0" width="8" height="12" fill="#ff2600"/><rect x="8" y="0" width="8" height="12" fill="#fff"/><rect x="16" y="0" width="8" height="12" fill="#ff2600"/><rect x="24" y="0" width="8" height="12" fill="#fff"/><rect x="32" y="0" width="8" height="12" fill="#ff2600"/><rect x="40" y="0" width="8" height="12" fill="#fff"/><rect x="48" y="0" width="8" height="12" fill="#ff2600"/><rect x="56" y="0" width="8" height="12" fill="#fff"/></g><line x1="0" y1="12" x2="64" y2="12"/><rect x="42" y="20" width="14" height="24" fill="#d6d9ef" stroke-width="1.2"/><text x="7" y="33" class="iso-t" font-size="11" stroke="none">SHOP</text></g><g transform="matrix(0.8660,-0.5,0,1,-95.3,189.0)"><rect x="12" y="14" width="40" height="18" rx="2" fill="#fff" stroke-width="1.2"/><text x="17" y="27" class="iso-t" font-size="10" stroke="none" fill="#ff2600">€ iDEAL</text></g><polygon points="57.2,117.0 64.1,121.0 64.1,207.0 57.2,203.0" fill="#eef0fb" /><polygon points="105.7,97.0 64.1,121.0 64.1,207.0 105.7,183.0" fill="#fff" /><polygon points="98.7,93.0 105.7,97.0 64.1,121.0 57.2,117.0" fill="#fff" /><g transform="matrix(0.8660,-0.5,0,1,64.1,121.0)"><rect x="4" y="6" width="40" height="74" rx="5" fill="#f4f4fa" stroke-width="1.1"/><rect x="18" y="9" width="12" height="3" rx="1.5" fill="#000041" stroke="none"/><rect x="8" y="17" width="25" height="10" rx="4" fill="#fff" stroke-width="1"/><rect x="15" y="31" width="25" height="10" rx="4" fill="#ff2600" stroke="none"/><rect x="8" y="45" width="29" height="14" rx="4" fill="#fff" stroke-width="1"/><g fill="#000041" stroke="none"><circle class="blink" cx="13" cy="69" r="2"/><circle class="blink" style="animation-delay:.2s" cx="19" cy="69" r="2"/><circle class="blink" style="animation-delay:.4s" cx="25" cy="69" r="2"/></g></g><g transform="translate(40 -6)" class="fl" style="animation-delay:.8s"><rect width="112" height="28" rx="14" fill="#fff"/><circle cx="16" cy="14" r="4.5" fill="#ff2600" stroke="none"/><circle class="ping" cx="16" cy="14" r="4.5" fill="none" stroke="#ff2600"/><text x="28" y="18.5" class="iso-t" font-size="11.5" stroke="none">AI-agent · live</text></g></g></svg>
+        <a class="hero-stat" href="#sneller">
+          <span class="frac">25%</span>
+          <span><strong>van de traditionele kosten</strong>voor softwareontwikkeling</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- TRUST BAR -->
+    <div class="trust reveal">
+      <div class="trust-grid">
+        <div class="trust-item">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+          <div><strong>20+ jaar</strong><span>bedrijfskritische software en integraties</span></div>
         </div>
-        <div class="info-card">
-          <h3>🎓 Opleiding &amp; talen</h3>
-          <ul>
-            <li><strong>Opleiding</strong> BSc Informatica – Fontys Hogeschool, Eindhoven</li>
-            <li><strong>Trainingen</strong> PRINCE2, ITIL, Collaborative Communication</li>
-            <li><strong>Talen</strong> Nederlands, Engels (vloeiend), Spaans, Duits</li>
-          </ul>
+        <div class="trust-item">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1.5-5h13L20 9M4 9v11h16V9M4 9h16M9 20v-6h6v6"/></svg></div>
+          <div><strong>150+ webshops</strong><span>draaien op één backoffice die ik mee bouwde</span></div>
         </div>
+        <div class="trust-item">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></div>
+          <div><strong>AI in productie</strong><span>agents op Anthropic Claude, mét vangrails</span></div>
+        </div>
+        <div class="trust-item">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></div>
+          <div><strong>25% van de kosten</strong><span>van traditionele ontwikkeling, door AI-first bouwen</span></div>
+        </div>
+      </div>
+      <div class="clients">
+        <small>Gebouwd voor of met o.a.</small>
+        <span>Rijkswaterstaat</span><span>Coop</span><span>Canon</span><span>ANWR-Garant</span><span>Kinetiq</span><span>Sadhaka</span>
       </div>
     </div>
   </div>
 </section>
 
 <!-- DIENSTEN -->
-<section id="diensten">
-  <div class="section-inner">
-    <div class="section-label">Diensten</div>
-    <h2>Wat ik aanbied</h2>
-    <p class="lead">
-      Van concept tot livegang: ik begeleid en bouw volledige digitale producten,
-      zowel als freelancer voor opdrachtgevers als met eigen producten.
-    </p>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">🖥️</div>
-        <h3>Frontend Development</h3>
-        <p>Moderne web- en mobiele applicaties met Angular, React/Next.js,
-           TypeScript, RxJS en Ionic. Responsive, toegankelijk en performant.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">⚙️</div>
-        <h3>Backend Development</h3>
-        <p>Schaalbare API's en serverless backends in Node.js en C#.NET,
-           met SQL- en NoSQL-databases en Firebase.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">☁️</div>
-        <h3>Cloud & DevOps</h3>
-        <p>Cloud-native oplossingen op AWS (Lambda, S3, SQS), Azure en Firebase,
-           inclusief CI/CD, Azure DevOps en Docker.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🤖</div>
-        <h3>AI-integraties</h3>
-        <p>Productierijpe LLM-toepassingen op Anthropic Claude: AI-agents met
-           identiteitscontrole, escalatie en kostenlimieten, plus AI-ondersteunde
-           content, vertaling en SEO.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🔌</div>
-        <h3>Systeemintegraties</h3>
-        <p>Veilige koppelingen tussen systemen via REST API's, messaging en
-           ETL/datatransformatie – o.a. met Microsoft Dynamics Field Service.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">💳</div>
-        <h3>Betaalintegraties</h3>
-        <p>Online betalingen via Mollie en Pay.nl (iDEAL, PayPal, Bancontact)
-           voor webshops en SaaS, inclusief webhooks en PSP-migraties.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TAFELTOUR -->
-<section id="tafeltour">
-  <div class="section-inner">
-
-    <!-- Logo + tagline -->
-    <div class="tt-header">
-      <img src="tafel-tour-logo-footer.gif" alt="TafelTour – Running Diner Experience" class="tt-logo">
-      <p class="tt-tagline">
-        Een avond vol nieuwe mensen, onverwachte ontmoetingen en heerlijk eten –
-        elke gang bij een andere gastheer.
-      </p>
+<section class="section services" id="diensten">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <div class="eyebrow">Diensten</div>
+      <h2>Van slim idee tot software die draait</h2>
+      <p class="lead">Drie specialismen die elkaar versterken: AI die werkt, applicaties die mensen graag gebruiken, en koppelingen die alles bij elkaar brengen.</p>
     </div>
 
-    <!-- Hoe het werkt -->
-    <div class="tt-steps">
-      <div class="tt-step">
-        <div class="tt-step-num">1</div>
-        <h3>Aanmelden &amp; voorkeuren</h3>
-        <p>Meld je team aan via de eventpagina, geef je dieetwensen op en of je een gang kunt hosten bij jou thuis.</p>
-      </div>
-      <div class="tt-step">
-        <div class="tt-step-num">2</div>
-        <h3>Slimme koppeling</h3>
-        <p>Ons planningsalgoritme bepaalt jouw route: voorgerecht, hoofdgerecht en nagerecht – elk bij een andere gastheer, zonder dubbele ontmoetingen.</p>
-      </div>
-      <div class="tt-step">
-        <div class="tt-step-num">3</div>
-        <h3>Volg je route</h3>
-        <p>Je persoonlijke route komt per e-mail. Op de avond zelf check je in per gang en volgt de organisator alles via het live dashboard.</p>
-      </div>
-    </div>
-
-    <!-- Features + prijzen -->
-    <div class="tafeltour-grid">
-      <div class="tafeltour-info">
-        <p>
-          TafelTour is het platform voor Running Dinners in Nederland – ontwikkeld door Esitec
-          en live op <a href="https://tafeltour.nl" style="color:#f5891e;">tafeltour.nl</a>.
-          Elke deelnemer kookt één gang en eet de andere gangen bij anderen thuis;
-          TafelTour regelt de indeling, routes en communicatie.
-        </p>
+    <div class="service-grid">
+      <article class="service featured reveal">
+        <span class="tag">Specialisme</span>
+        <div class="badge-ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></div>
+        <h3>AI-integraties &amp; agents</h3>
+        <p>Productierijpe AI op o.a. Anthropic Claude, ingebouwd in je bestaande processen en systemen. Geen losse gimmick.</p>
         <ul>
-          <li>Automatische routeplanning met kwaliteitsrapport</li>
-          <li>Dieetwensen en allergenen automatisch verwerkt</li>
-          <li>Inschrijven, betalen en wachtlijst volledig automatisch</li>
-          <li>Bevestigings- en routemails naar alle deelnemers</li>
-          <li>Live dashboard voor de organisator op de avond zelf</li>
-          <li>Kant-en-klaar promotiemateriaal voor je event</li>
-          <li>Veilig betalen via Mollie (iDEAL, PayPal &amp; Bancontact)</li>
+          <li>AI-agents voor WhatsApp, chat en e-mail</li>
+          <li>Identiteitscontrole, escalatie naar een mens en kostenlimieten</li>
+          <li>AI voor content, vertaling, SEO en beeld</li>
         </ul>
+        <a class="link-arrow" href="#contact">Bespreek je AI-idee <span aria-hidden="true">→</span></a>
+      </article>
+      <article class="service reveal" data-d="1">
+        <div class="badge-ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="15" height="12" rx="2"/><path d="M2 8h15"/><rect x="15" y="9" width="7" height="12" rx="1.5" fill="#fff"/><path d="M18 18.5h1"/></svg></div>
+        <h3>Webapplicaties &amp; apps</h3>
+        <p>Maatwerk web- en mobiele applicaties die snel, toegankelijk en onderhoudbaar zijn. Van publieke site met boekingsflow tot complexe backoffice.</p>
+        <ul>
+          <li>Angular, React / Next.js, native iOS &amp; Android</li>
+          <li>Dashboards, portalen en self-service flows</li>
+          <li>Meertalig, responsive en goed getest</li>
+        </ul>
+        <a class="link-arrow" href="#contact">Start je applicatie <span aria-hidden="true">→</span></a>
+      </article>
+      <article class="service reveal" data-d="2">
+        <div class="badge-ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2.5"/><circle cx="19" cy="6" r="2.5"/><circle cx="5" cy="18" r="2.5"/><circle cx="19" cy="18" r="2.5"/><circle cx="12" cy="12" r="3" fill="#ff2600" stroke="#ff2600"/><path d="M7 7.5l2.6 2.6M17 7.5l-2.6 2.6M7 16.5l2.6-2.6M17 16.5l-2.6-2.6"/></svg></div>
+        <h3>Systeemintegraties</h3>
+        <p>Koppelingen tussen ERP, CRM, webshop, betaal- en cloudplatformen, zodat data één keer wordt ingevoerd en overal klopt.</p>
+        <ul>
+          <li>REST, SOAP, messaging en ETL</li>
+          <li>ERP, CRM, boekhouding, Mollie en Pay.nl</li>
+          <li>Veilige, monitorbare berichtstromen</li>
+        </ul>
+        <a class="link-arrow" href="#contact">Koppel je systemen <span aria-hidden="true">→</span></a>
+      </article>
+    </div>
 
-        <div class="tt-for-org">
-          <strong>Voor organisatoren</strong>
-          Organiseer je een Running Dinner voor vrienden, buurt, bedrijf of vereniging?
-          Maak je event aan in 5 minuten – TafelTour regelt de logistiek digitaal,
-          van aanmelding tot routepublicatie.
-          <br><br>
-          <a href="https://tafeltour.nl">Gratis starten op tafeltour.nl →</a>
-          <br>
-          <a href="#" class="email-link" data-user="info" data-domain="esitec.nl">
-            Of neem contact op voor een demo →
-          </a>
-        </div>
+    <div class="mini-services">
+      <div class="mini reveal">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg></div>
+        <div><strong>Betaalintegraties</strong><span>iDEAL, Bancontact en PayPal via Mollie en Pay.nl, inclusief webhooks en PSP-migraties.</span></div>
       </div>
+      <div class="mini reveal" data-d="1">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18a5 5 0 0 1-.6-9.96A6 6 0 0 1 18 9a4.5 4.5 0 0 1-.5 9z"/></svg></div>
+        <div><strong>Cloud &amp; DevOps</strong><span>Serverless op AWS, Azure DevOps, Firebase en Vercel, met CI/CD en monitoring.</span></div>
+      </div>
+      <div class="mini reveal" data-d="2">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l2 2 4-4"/><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/></svg></div>
+        <div><strong>Tech lead &amp; reviews</strong><span>Architectuur, codestandaarden, code reviews en AI-first werken in je eigen team.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <!-- Prijskaart -->
-      <div class="payment-card">
-        <h3>🎟️ Eerlijke, transparante prijzen</h3>
-        <p class="price-intro">Jij kiest wie de platformkosten draagt – de organisator of de deelnemers.</p>
-
-        <div class="price-option featured">
-          <div class="price-label">
-            <strong>Deelnemers betalen <span class="badge">Meest gekozen</span></strong>
-            Platformbijdrage per aanmelding; de organisator betaalt niets
-          </div>
-          <div>
-            <div class="price-amount">€ 1,95</div>
-            <div class="price-sub">per aanmelding</div>
-          </div>
+<!-- KOSTEN: 25% -->
+<section class="section faster" id="sneller">
+  <div class="wrap">
+    <div class="faster-card">
+      <div class="reveal">
+        <div class="eyebrow">AI-first ontwikkelen</div>
+        <h2>Professionele software voor 25% van de kosten</h2>
+        <p class="lead">Dezelfde kwaliteit als een traditioneel ontwikkeltraject, met tests, code reviews en documentatie, maar zonder de overhead. Zo werkt dat:</p>
+        <ol class="reasons">
+          <li><span class="rn">1</span><div><strong>AI als pair programmer</strong>Claude Code schrijft, test en documenteert mee. Ik bewaak architectuur, veiligheid en kwaliteit.</div></li>
+          <li><span class="rn">2</span><div><strong>Geen overdrachten</strong>Eén senior van ontwerp tot livegang. Geen accountmanager, projectleider en juniors die elkaar moeten briefen.</div></li>
+          <li><span class="rn">3</span><div><strong>Bewezen bouwstenen</strong>Inloggen, betalingen, e-mailflows, koppelingen en AI-vangrails liggen klaar en zijn in productie getest.</div></li>
+        </ol>
+      </div>
+      <div class="bars reveal" data-d="1" aria-label="Vergelijking ontwikkelkosten">
+        <div class="bar-group">
+          <div class="bar-label">Ontwikkelkosten</div>
+          <div class="bar-row"><span>Traditioneel</span><div class="bar"><i style="--w:100%"></i></div><b>100%</b></div>
+          <div class="bar-row esi"><span>Esitec</span><div class="bar"><i style="--w:25%"></i></div><b>25%</b></div>
         </div>
-
-        <div class="price-option">
-          <div class="price-label">
-            <strong>Organisator betaalt</strong>
-            Eenmalig per event; geen platformkosten voor deelnemers
-          </div>
-          <div>
-            <div class="price-amount">€ 35,00</div>
-            <div class="price-sub">per event</div>
-          </div>
-        </div>
-
-        <div class="price-option">
-          <div class="price-label">
-            <strong>Pro <span class="badge soon">Binnenkort</span></strong>
-            Onbeperkt aanmeldingen, eigen branding, WhatsApp &amp; SMS, analytics
-          </div>
-          <div>
-            <div class="price-amount">€ 150</div>
-            <div class="price-sub">per event · of € 295/jaar</div>
-          </div>
-        </div>
-
-        <p class="price-footnote">
-          Alle bedragen zijn inclusief btw. Beide basisopties: tot 40 aanmeldingen per event,
-          automatische routeplanning, dieetwensenbeheer en route-mails.
-        </p>
-
-        <a class="pay-btn" href="https://tafeltour.nl/prijzen">
-          Bekijk prijzen &amp; start gratis
+        <p class="bar-note">Vergeleken met een traditioneel ontwikkeltraject met dezelfde scope en kwaliteitseisen.</p>
+        <a class="proof" href="#producten">
+          <img src="assets/prepalarm-icon.png" alt="" width="44" height="44">
+          <span><strong>Bewijs: PrepAlarm</strong>Native iOS- en Android-app plus backend met 70+ databronnen in 17 landen, ontwikkeld in twee <span class="nowrap">weken.<svg class="rocket" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><g transform="rotate(45 12 12)" stroke="#000041" stroke-linejoin="round"><path class="flame" d="M10 16.5c0 2.5 1 4 2 5.8 1-1.8 2-3.3 2-5.8z" fill="#ff8a00" stroke="none"/><path d="M7.5 12.5 5 15.5V18l2.5-1.5M16.5 12.5l2.5 3V18l-2.5-1.5" fill="#ff2600" stroke-width="1.3"/><path d="M12 2c3 2.5 4.5 6 4.5 10v4.5h-9V12c0-4 1.5-7.5 4.5-10z" fill="#fff" stroke-width="1.5"/><circle cx="12" cy="9.5" r="1.8" fill="#ff2600" stroke-width="1.2"/></g></svg></span></span>
         </a>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <p class="mollie-note">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+<!-- SPLIT: OVER -->
+<section class="section" id="over">
+  <div class="wrap split">
+    <div class="art reveal"><svg class="iso-art" viewBox="-250 -112 530 372" role="img" aria-labelledby="craft-art-t"><title id="craft-art-t">Isometrische illustratie: dashboard, app en code, verbonden met een AI-assistent</title><defs>
+  <radialGradient id="orb2" cx="36%" cy="32%" r="75%">
+    <stop offset="0" stop-color="#ff8a6e"/><stop offset=".45" stop-color="#ff2600"/><stop offset="1" stop-color="#b81b00"/>
+  </radialGradient>
+  <radialGradient id="glow2"><stop offset="0" stop-color="#ff2600" stop-opacity=".35"/><stop offset="1" stop-color="#ff2600" stop-opacity="0"/></radialGradient>
+  <linearGradient id="beam2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff2600" stop-opacity=".22"/><stop offset="1" stop-color="#ff2600" stop-opacity="0"/></linearGradient>
+</defs><g stroke="#000041" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><g transform="translate(-210 -10) scale(0.9)"><path class="tw" style="animation-delay:0.3s" d="M0 -10 C1 -2 2 -1 10 0 C2 1 1 2 0 10 C-1 2 -2 1 -10 0 C-2 -1 -1 -2 0 -10 Z" fill="#ff2600" stroke="#000041" stroke-width="1.56"/></g><g transform="translate(250 170) scale(0.6)"><path class="tw" style="animation-delay:1.1s" d="M0 -10 C1 -2 2 -1 10 0 C2 1 1 2 0 10 C-1 2 -2 1 -10 0 C-2 -1 -1 -2 0 -10 Z" fill="#fff" stroke="#000041" stroke-width="2.33"/></g><path transform="translate(-250 40) scale(0.7)" d="M8 34 H74 A15 15 0 0 0 70 6 A22 22 0 0 0 30 2 A17 17 0 0 0 8 34 Z" fill="#fff" stroke="#000041" stroke-width="2.29"/><polygon points="-164.5,83.0 95.3,233.0 95.3,245.0 -164.5,95.0" fill="#ffd9cf" /><polygon points="259.8,138.0 95.3,233.0 95.3,245.0 259.8,150.0" fill="#ffb8a5" /><polygon points="0.0,-12.0 259.8,138.0 95.3,233.0 -164.5,83.0" fill="#fff" /><polygon points="-36.4,-121.0 149.0,-14.0 149.0,132.0 -36.4,25.0" fill="#eef0fb" /><polygon points="155.9,-18.0 149.0,-14.0 149.0,132.0 155.9,128.0" fill="#d6d9ef" /><polygon points="-29.4,-125.0 155.9,-18.0 149.0,-14.0 -36.4,-121.0" fill="#fff" /><g transform="matrix(0.8660,0.5,0,1,-36.4,-121.0)"><rect x="0" y="0" width="214" height="16" fill="#f4f4fa" stroke="none"/><line x1="0" y1="16" x2="214" y2="16"/><g stroke="none"><circle cx="9" cy="8" r="2.6" fill="#ff2600"/><circle cx="17" cy="8" r="2.6" fill="#000041" opacity=".25"/><circle cx="25" cy="8" r="2.6" fill="#000041" opacity=".25"/><rect x="40" y="5" width="120" height="6" rx="3" fill="#fff"/></g><rect x="0" y="16" width="52" height="130" fill="#f4f4fa" stroke="none"/><line x1="52" y1="16" x2="52" y2="146"/><g stroke="none" fill="#000041" opacity=".2"><rect x="8" y="28" width="34" height="5" rx="2.5"/><rect x="8" y="42" width="28" height="5" rx="2.5"/><rect x="8" y="56" width="32" height="5" rx="2.5"/><rect x="8" y="70" width="24" height="5" rx="2.5"/></g><text x="64" y="38" class="iso-t" font-size="11" stroke="none">Dashboard</text><g stroke="none"><rect x="70" y="100" width="10" height="18" rx="1.5" fill="#000041" opacity="0.2"/><rect x="86" y="92" width="10" height="26" rx="1.5" fill="#000041" opacity="0.2"/><rect x="102" y="96" width="10" height="22" rx="1.5" fill="#000041" opacity="0.2"/><rect x="118" y="84" width="10" height="34" rx="1.5" fill="#000041" opacity="0.2"/><rect x="134" y="88" width="10" height="30" rx="1.5" fill="#000041" opacity="0.2"/><rect x="150" y="74" width="10" height="44" rx="1.5" fill="#ff2600" opacity="1"/><rect x="166" y="80" width="10" height="38" rx="1.5" fill="#000041" opacity="0.2"/></g><rect x="64" y="126" width="138" height="12" rx="3" fill="#ff2600" opacity=".12" stroke="none"/><rect x="184" y="28" width="20" height="8" rx="4" fill="#ff2600" stroke="none"/></g><g class="fl" style="animation-delay:.6s"><polygon points="112.6,67.0 117.8,70.0 117.8,154.0 112.6,151.0" fill="#eef0fb" /><polygon points="214.8,14.0 117.8,70.0 117.8,154.0 214.8,98.0" fill="#d6d9ef" /><polygon points="209.6,11.0 214.8,14.0 117.8,70.0 112.6,67.0" fill="#fff" /><g transform="matrix(0.8660,-0.5,0,1,117.8,70.0)" stroke="none"><text x="10" y="18" class="iso-t" font-size="12" fill="#ff2600">&lt;/&gt;</text><rect x="10" y="28" width="54" height="4" rx="2" fill="#000041" opacity="0.22"/><rect x="18" y="37" width="70" height="4" rx="2" fill="#000041" opacity="0.22"/><rect x="18" y="46" width="46" height="4" rx="2" fill="#000041" opacity="0.22"/><rect x="26" y="55" width="60" height="4" rx="2" fill="#ff2600" opacity="1"/><rect x="18" y="64" width="38" height="4" rx="2" fill="#000041" opacity="0.22"/><rect x="10" y="73" width="22" height="4" rx="2" fill="#000041" opacity="0.22"/></g></g><polygon points="41.6,58.0 81.4,81.0 81.4,163.0 41.6,140.0" fill="#fff" /><polygon points="88.3,77.0 81.4,81.0 81.4,163.0 88.3,159.0" fill="#d6d9ef" /><polygon points="48.5,54.0 88.3,77.0 81.4,81.0 41.6,58.0" fill="#fff" /><g transform="matrix(0.8660,0.5,0,1,41.6,58.0)"><rect x="4" y="5" width="38" height="72" rx="5" fill="#f4f4fa" stroke-width="1.1"/><rect x="17" y="8" width="12" height="3" rx="1.5" fill="#000041" stroke="none"/><rect x="8" y="16" width="30" height="20" rx="3" fill="#ff2600" stroke="none"/><g stroke="none" fill="#000041" opacity=".2"><rect x="8" y="42" width="30" height="4" rx="2"/><rect x="8" y="50" width="22" height="4" rx="2"/><rect x="8" y="58" width="26" height="4" rx="2"/></g></g><g><path d="M-92.6 93.0 V69.0 A14.7 8.5 0 0 0 -63.2 69.0 V93.0 A14.7 8.5 0 0 1 -92.6 93.0 Z" fill="#fff"/><ellipse cx="-77.9" cy="69.0" rx="14.7" ry="8.5" fill="#000041"/><path d="M-92.6 81.0 A14.7 8.5 0 0 0 -63.2 81.0" fill="none" stroke="#ff2600" stroke-width="3"/><path d="M-63.9 75.0 q10 2 6 12" fill="none"/></g><path d="M170 -54 C 210 -40, 240 -20, 255 12" fill="none" stroke="#ff2600" stroke-width="2" stroke-dasharray="0 7"/><path d="M132 -52 C 110 -30, 90 -10, 70 20" fill="none" stroke="#ff2600" stroke-width="2" stroke-dasharray="0 7"/><circle class="pulse" cx="150.0" cy="-70.0" r="38" fill="url(#glow2)" stroke="none"/><g transform="translate(150.0 -70.0) rotate(-14)"><ellipse rx="35" ry="11" fill="none" stroke="#000041" stroke-opacity=".35" stroke-dasharray="3 5" stroke-width="1.4"/><circle r="3.5" fill="#000041" stroke="none"><animateMotion dur="5s" repeatCount="indefinite" path="M-35 0 a35 11 0 1 0 70 0 a35 11 0 1 0 -70 0"/></circle></g><circle cx="150.0" cy="-70.0" r="20" fill="url(#orb2)"/><ellipse cx="143.0" cy="-78.4" rx="6.4" ry="4.0" fill="#fff" fill-opacity=".55" stroke="none" transform="rotate(-30 143.0 -78.4)"/></g></svg></div>
+    <div class="reveal" data-d="1">
+      <div class="eyebrow">AI-specialist met een engineering-fundament</div>
+      <h2>Geen AI-experimenten, maar software die blijft werken</h2>
+      <p>
+        AI is pas waardevol als het <strong>veilig, voorspelbaar en betaalbaar</strong> in productie draait.
+        Daarvoor heb je meer nodig dan een slimme prompt: doordachte architectuur, nette integraties, tests en monitoring.
+      </p>
+      <p>
+        Ik ben Eugène Spaan, en ik bouw al ruim twintig jaar bedrijfskritische software: van web-to-print-systemen
+        bij Canon tot een financiële backoffice voor 150+ webshops. Vandaag werk ik <strong>AI-first</strong>:
+        met Claude Code als pair programmer lever ik op voor een kwart van de traditionele kosten, mét tests en documentatie.
+      </p>
+      <div class="checks-title">Voordelen van werken met Esitec</div>
+      <ul class="checks">
+        <li><span class="ck"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3 3 7-7"/></svg></span>Je werkt direct met de senior die het bouwt</li>
+        <li><span class="ck"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3 3 7-7"/></svg></span>AI met vangrails: escalatie, identiteitscheck en kostenlimieten</li>
+        <li><span class="ck"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3 3 7-7"/></svg></span>Jouw code en jouw cloud, volledig overdraagbaar</li>
+      </ul>
+      <a class="btn btn-primary" href="#contact">Maak kennis <span class="arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE (vervang later door een citaat van een opdrachtgever) -->
+<section class="section quote">
+  <div class="wrap">
+    <blockquote class="reveal">
+      <svg class="q-mark" viewBox="0 0 92 70" aria-hidden="true"><path fill="currentColor" d="M0 70V42C0 18 12 4 36 0l4 10C26 14 20 22 20 34h18v36zm52 0V42c0-24 12-38 36-42l4 10c-14 4-20 12-20 24h18v36z"/></svg>
+      <p>Een AI-demo is zo gebouwd. De echte waarde zit in wat er daarna komt: <em>betrouwbare integraties</em>, heldere vangrails en software die je over vijf jaar nog steeds kunt onderhouden.</p>
+      <footer>
+        <span class="avatar" aria-hidden="true">ES</span>
+        <span><strong>Eugène Spaan</strong><span>Eigenaar Esitec · AI-specialist &amp; senior full-stack developer</span></span>
+      </footer>
+    </blockquote>
+  </div>
+</section>
+
+<!-- AANPAK -->
+<section class="section" id="aanpak">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Aanpak</div>
+      <h2>Helder proces, elke week zichtbaar resultaat</h2>
+      <p class="lead">Complexe trajecten opgeknipt in overzichtelijke stappen. Je weet altijd waar we staan en wat het kost.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="num">01</div>
+        <h3>Verkennen</h3>
+        <p>We brengen je processen, systemen en data in kaart en bepalen waar AI en automatisering het meest opleveren.</p>
+        <span class="pill">Gratis kennismaking</span>
+      </div>
+      <div class="step reveal" data-d="1">
+        <div class="num">02</div>
+        <h3>Ontwerpen</h3>
+        <p>Architectuur, integratiepunten en vangrails op papier: welke data, welke koppelingen, welke risico’s en kosten.</p>
+        <span class="pill">Vaste prijs mogelijk</span>
+      </div>
+      <div class="step reveal" data-d="2">
+        <div class="num">03</div>
+        <h3>Bouwen</h3>
+        <p>In korte iteraties, AI-first met Claude Code als pair programmer. Je ziet en test elke week werkende software.</p>
+        <span class="pill">Wekelijkse demo</span>
+      </div>
+      <div class="step reveal" data-d="3">
+        <div class="num">04</div>
+        <h3>Live &amp; verder</h3>
+        <p>Livegang met monitoring, documentatie en overdracht. Of doorlopend beheer en doorontwikkeling.</p>
+        <span class="pill">Geen lock-in</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section class="section cases" id="cases">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Cases</div>
+      <h2>Software die al in productie draait</h2>
+      <p class="lead">Een selectie van recente projecten, van AI-agents tot platformen waar honderden partijen dagelijks op leunen.</p>
+    </div>
+    <div class="case-grid">
+      <article class="case reveal">
+        <div class="visual" aria-hidden="true">
+          <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
+            <circle cx="250" cy="40" r="70" fill="#ffd9cf"/>
+            <g stroke="#000041" stroke-width="1.6" stroke-linejoin="round">
+              <rect x="108" y="22" width="104" height="176" rx="16" fill="#fff"/>
+              <rect x="146" y="30" width="28" height="5" rx="2.5" fill="#000041"/>
+              <rect x="120" y="48" width="62" height="20" rx="8" fill="#f3f3f9"/>
+              <rect x="138" y="76" width="62" height="20" rx="8" fill="#ff2600" stroke="none"/>
+              <rect x="120" y="104" width="72" height="30" rx="8" fill="#f3f3f9"/>
+              <rect x="150" y="142" width="50" height="20" rx="8" fill="#ff2600" stroke="none"/>
+            </g>
+            <g fill="#fff" opacity=".9"><rect x="146" y="84" width="40" height="4" rx="2"/><rect x="158" y="150" width="30" height="4" rx="2"/></g>
+            <g fill="#000041" opacity=".25"><rect x="128" y="56" width="40" height="4" rx="2"/><rect x="128" y="112" width="52" height="4" rx="2"/><rect x="128" y="121" width="36" height="4" rx="2"/></g>
+            <g transform="translate(232 112)"><circle r="20" fill="#000041"/><path d="M0 -10 C1 -2 2 -1 10 0 C2 1 1 2 0 10 C-1 2 -2 1 -10 0 C-2 -1 -1 -2 0 -10Z" fill="#ff2600"/></g>
+            <g transform="translate(66 66)" stroke="#000041" stroke-width="1.6"><rect width="40" height="26" rx="8" fill="#fff"/><path d="M12 13l5 5 10-10" fill="none" stroke="#ff2600" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></g>
           </svg>
-          Deelnemers betalen veilig via Mollie · iDEAL · PayPal · Bancontact
-        </p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ERVARING -->
-<section id="ervaring">
-  <div class="section-inner">
-    <div class="section-label">Achtergrond</div>
-    <h2>Werkervaring</h2>
-    <p class="lead">Een selectie van recente en relevante opdrachten.</p>
-    <div class="timeline">
-
-      <div class="timeline-item">
-        <h3>Freelance Full Stack Developer – Sadhaka</h3>
-        <div class="period">Jun – Aug 2026</div>
-        <p>Nieuwe publieke website en deelnemersflows via een getypeerde BFF, inclusief boekingsflow en migratie van Pay.nl naar Mollie. Server-side AI op Anthropic Claude: een WhatsApp-antwoordagent en AI-ondersteunde content, vertaling, SEO en beeldgeneratie. Next.js 16, React 19, TypeScript, Firebase, Claude Code.</p>
-      </div>
-
-      <div class="timeline-item">
-        <h3>Freelance Frontend Developer – Kinetiq</h3>
-        <div class="period">Mei 2024 – Jun 2026</div>
-        <p>Productie-taggingplatform voor de internationale Red Bull-organisatie en modernisering van interne applicaties. Code reviews, frontend-standaarden en C#.NET-backendwerk. AI-first werkwijze met intensief dagelijks gebruik van AI-tooling zoals Claude Code en GitHub Copilot. Angular 19–20, RxJS, TypeScript, NgZorro.</p>
-      </div>
-
-      <div class="timeline-item">
-        <h3>Freelance Full Stack Developer – Databrydge / ANWR-Garant</h3>
-        <div class="period">2021 – 2024</div>
-        <p>Financiële backoffice voor een netwerk van 150+ webshops binnen een MACH-architectuur. Angular 17, NgRx, Node.js 18, AWS Lambda, S3, SQS, CI/CD.</p>
-      </div>
-
-      <div class="timeline-item">
-        <h3>Freelance Full Stack Developer – Sadhaka</h3>
-        <div class="period">Jan – Mei 2024</div>
-        <p>Boekings- en administratieplatform vanaf nul: deelnemersapp en backoffice voor events, locaties, accommodaties en catering. iDEAL-betalingen via Pay.nl. Angular 17, Firebase Cloud Functions.</p>
-      </div>
-
-      <div class="timeline-item">
-        <h3>Freelance Developer – Rsult</h3>
-        <div class="period">2022 – 2023</div>
-        <p>Oracle NetSuite-integraties op het Celigo Integration Platform (ETL), inclusief datamapping en -transformatie. TypeScript, REST, SOAP.</p>
-      </div>
-
-      <div class="timeline-item">
-        <h3>Freelance Developer – Databalk</h3>
-        <div class="period">2022</div>
-        <p>API-integraties en berichtstromen tussen interne systemen en Microsoft Dynamics Field Service. Node.js, TypeScript, Express, Azure DevOps.</p>
-      </div>
-
-      <div class="timeline-item">
-        <h3>Owner / Developer – Consumedia bv</h3>
-        <div class="period">2008 – 2021</div>
-        <p>Web-, webshop- en mobiele applicaties voor klanten als Rijkswaterstaat en Coop Supermarkten. Eindverantwoordelijk voor architectuur, integraties en projectoplevering.</p>
-      </div>
-
-      <div class="timeline-item">
-        <h3>System Engineer / Integration Specialist – Canon Nederland</h3>
-        <div class="period">2008 – 2019</div>
-        <p>Bedrijfskritische web-to-print-applicaties, interfaces en integraties. C#.NET, MSSQL, Azure, ETL.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="section-inner">
-    <div class="contact-grid">
-      <div>
-        <div class="section-label">Contact</div>
-        <h2>Neem contact op</h2>
-        <p class="lead">
-          Interesse in samenwerking, een opdracht of een vraag over TafelTour?
-          Ik reageer doorgaans binnen één werkdag.
-        </p>
-
-        <a class="contact-item email-link" href="#" data-user="info" data-domain="esitec.nl">
-          <div class="contact-icon">✉️</div>
-          <div>
-            <strong>E-mail</strong>
-            <span>info&#64;esitec&#46;nl</span>
-          </div>
-        </a>
-
-      </div>
-
-      <div>
-        <div class="kvk-info">
-          <h3>📋 Zakelijke informatie</h3>
-          <dl>
-            <dt>Handelsnaam</dt>
-            <dd>Esitec</dd>
-            <dt>Eigenaar</dt>
-            <dd>Eugène Spaan</dd>
-            <dt>Rechtsvorm</dt>
-            <dd>Eenmanszaak</dd>
-            <dt>Vestigingsplaats</dt>
-            <dd>Nijmegen</dd>
-            <dt>Land</dt>
-            <dd>Nederland</dd>
-          </dl>
-          <p>&nbsp;</p>
-          <p style="font-size:.78rem; color:var(--muted); margin-top:1rem;">
-            KvK-nummer: 84734485 - Btw-nummer: NL004008604B41.
-          </p>
         </div>
+        <div class="body">
+          <div class="kicker">Sadhaka · AI &amp; web</div>
+          <h3>WhatsApp AI-agent en nieuw boekingsplatform</h3>
+          <p>Nieuwe publieke website en deelnemersflows via een getypeerde BFF, plus een AI-agent op Claude die WhatsApp-vragen beantwoordt, veilig en binnen budget.</p>
+          <div class="stack">Next.js 16 · React 19 · Anthropic Claude · WhatsApp Cloud API · Firebase</div>
+          <div class="metrics">
+            <div class="metric"><small>AI-agent</small><strong>Met escalatie &amp; kostenlimiet</strong></div>
+            <div class="metric"><small>Betalingen</small><strong>Pay.nl → Mollie</strong></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="case reveal" data-d="1">
+        <div class="visual" aria-hidden="true">
+          <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
+            <g>
+              <!-- raster van webshops -->
+              <g fill="#fff" stroke="#000041" stroke-width="1.2">
+                <rect x="24" y="22" width="22" height="18" rx="4"/><rect x="54" y="22" width="22" height="18" rx="4"/><rect x="84" y="22" width="22" height="18" rx="4" fill="#ff2600" stroke="#ff2600"/>
+                <rect x="24" y="48" width="22" height="18" rx="4"/><rect x="54" y="48" width="22" height="18" rx="4" fill="#ff2600" stroke="#ff2600"/><rect x="84" y="48" width="22" height="18" rx="4"/>
+                <rect x="24" y="74" width="22" height="18" rx="4" fill="#ff2600" stroke="#ff2600"/><rect x="54" y="74" width="22" height="18" rx="4"/><rect x="84" y="74" width="22" height="18" rx="4"/>
+                <rect x="24" y="100" width="22" height="18" rx="4"/><rect x="54" y="100" width="22" height="18" rx="4"/><rect x="84" y="100" width="22" height="18" rx="4" fill="#ff2600" stroke="#ff2600"/>
+                <rect x="24" y="126" width="22" height="18" rx="4"/><rect x="54" y="126" width="22" height="18" rx="4" fill="#ff2600" stroke="#ff2600"/><rect x="84" y="126" width="22" height="18" rx="4"/>
+              </g>
+              <path d="M112 40 C150 40 150 90 186 90 M112 66 C150 66 150 90 186 90 M112 118 C150 118 150 90 186 90 M112 144 C150 144 150 90 186 90" fill="none" stroke="#000041" stroke-width="1.6" stroke-dasharray="0 6" stroke-linecap="round"/>
+              <rect x="186" y="44" width="110" height="92" rx="14" fill="#000041"/>
+              <text x="202" y="72" font-family="Fira Sans, Inter, sans-serif" font-weight="800" font-size="13" fill="#fff">Backoffice</text>
+              <rect x="202" y="84" width="78" height="6" rx="3" fill="#fff" opacity=".25"/>
+              <rect x="202" y="96" width="56" height="6" rx="3" fill="#fff" opacity=".25"/>
+              <rect x="202" y="110" width="34" height="14" rx="7" fill="#ff2600"/>
+              <text x="208" y="121" font-family="Inter, sans-serif" font-weight="700" font-size="9" fill="#fff">€ ok</text>
+            </g>
+          </svg>
+        </div>
+        <div class="body">
+          <div class="kicker">ANWR-Garant · via Databrydge</div>
+          <h3>Financiële backoffice voor een webshopnetwerk</h3>
+          <p>Schaalbare Angular- en Node.js-oplossing binnen een MACH-architectuur, met asynchrone serverless verwerking op AWS.</p>
+          <div class="stack">Angular 17 · NgRx · Node.js · AWS Lambda · S3 · SQS · CI/CD</div>
+          <div class="metrics">
+            <div class="metric"><small>Bereik</small><strong>150+ webshops</strong></div>
+            <div class="metric"><small>Architectuur</small><strong>Serverless &amp; MACH</strong></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="case reveal" data-d="2">
+        <div class="visual" aria-hidden="true">
+          <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
+            <circle cx="70" cy="150" r="80" fill="#ffd9cf"/>
+            <g stroke="#000041" stroke-width="1.6" stroke-linejoin="round">
+              <rect x="60" y="28" width="200" height="124" rx="12" fill="#fff"/>
+              <path d="M60 46h200" />
+              <rect x="74" y="58" width="96" height="80" rx="8" fill="#000041"/>
+              <path d="M90 124l22-30 16 18 10-12 20 24z" fill="#ff2600" stroke="none"/>
+              <circle cx="146" cy="78" r="7" fill="#fff" stroke="none"/>
+            </g>
+            <g font-family="Inter, sans-serif" font-weight="700" font-size="10">
+              <g transform="translate(182 60)"><rect width="66" height="20" rx="10" fill="#ff2600"/><text x="10" y="14" fill="#fff">#athlete</text></g>
+              <g transform="translate(182 86)"><rect width="56" height="20" rx="10" fill="#f3f3f9" stroke="#000041"/><text x="10" y="14" fill="#000041">#event</text></g>
+              <g transform="translate(182 112)"><rect width="62" height="20" rx="10" fill="#f3f3f9" stroke="#000041"/><text x="10" y="14" fill="#000041">#outdoor</text></g>
+            </g>
+            <g transform="translate(272 34)"><path d="M0 -12 C1 -2 2 -1 12 0 C2 1 1 2 0 12 C-1 2 -2 1 -12 0 C-2 -1 -1 -2 0 -12Z" fill="#ff2600" stroke="#000041" stroke-width="1.4"/></g>
+          </svg>
+        </div>
+        <div class="body">
+          <div class="kicker">Kinetiq · Red Bull</div>
+          <h3>Productie-taggingplatform voor een internationaal merk</h3>
+          <p>Innovatief taggingplatform voor de internationale Red Bull-organisatie en modernisering van interne Angular-applicaties, in een AI-first team.</p>
+          <div class="stack">Angular 19 &amp; 20 · RxJS · TypeScript · C#.NET · Claude Code · Copilot</div>
+          <div class="metrics">
+            <div class="metric"><small>Schaal</small><strong>Internationaal</strong></div>
+            <div class="metric"><small>Werkwijze</small><strong>AI-first team</strong></div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="recent reveal">
+      <div class="recent-head">
+        <h3>Recent gebouwd met Claude Code</h3>
+        <span>Elk project: senior architectuur, AI-first uitgevoerd</span>
+      </div>
+      <div class="recent-grid">
+        <a class="recent-item" href="https://toeptoernooi.nl">
+          <small>Live platform</small>
+          <strong>ToepToernooi</strong>
+          <span>Toernooibeheer met live scores en een optimalisatie-algoritme dat deelnemers eerlijk over tafels en rondes verdeelt.</span>
+          <em>.NET · React · SignalR · SQL Server</em>
+        </a>
+        <a class="recent-item" href="https://dichtbijcommunity.nl">
+          <small>Mobiele app · in ontwikkeling</small>
+          <strong>Dichtbij</strong>
+          <span>iOS- en Android-app voor echte ontmoetingen, met beheeromgeving en strikte toegangsregels in de database.</span>
+          <em>Expo · Supabase · Next.js</em>
+        </a>
+        <div class="recent-item">
+          <small>AI-contentpipeline</small>
+          <strong>Quizzixer</strong>
+          <span>Van trending topic naar kant-en-klare quizvideo: Claude schrijft, ElevenLabs spreekt in, Remotion rendert.</span>
+          <em>Claude · ElevenLabs · Remotion · Next.js</em>
+        </div>
+        <a class="recent-item" href="https://masseer.me">
+          <small>Website · lokale SEO</small>
+          <strong>masseer.me</strong>
+          <span>Razendsnelle statische website met online boeken, geoptimaliseerd voor lokale vindbaarheid.</span>
+          <em>Astro · Markdown · Cal.eu</em>
+        </a>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- SIDE PROJECTS -->
+<section class="section products" id="producten">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Side projects</div>
+      <h2>Zelf bedacht, gebouwd én in de lucht</h2>
+      <p class="lead">Naast klantwerk bouw en beheer ik eigen side projects. Het beste bewijs dat ik van idee tot werkende software kom, en dat het daarna blijft draaien.</p>
+    </div>
+    <div class="product-grid">
+      <article class="product tafeltour reveal">
+        <img class="tt-logo" src="assets/tafeltour-logo.webp" alt="TafelTour, Running Diner Experience" width="753" height="368" loading="lazy">
+        <div class="kicker">SaaS-platform · live</div>
+        <h3>TafelTour</h3>
+        <p>Hét platform voor Running Dinners in Nederland. Een planningsalgoritme koppelt deelnemers aan gastheren, verwerkt dieetwensen en verstuurt persoonlijke routes.</p>
+        <ul class="feats">
+          <li>Route- en matchingalgoritme</li>
+          <li>Inschrijven, betalen &amp; wachtlijst</li>
+          <li>Automatische e-mailflows</li>
+          <li>Live organisatordashboard</li>
+        </ul>
+        <div class="foot">
+          <span class="stack">Angular · Firebase · Cloud Run · Mollie</span>
+          <a class="link-arrow" href="https://tafeltour.nl">tafeltour.nl <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+
+      <article class="product prepalarm reveal" data-d="1">
+        <div class="pa-top">
+          <div class="pa-brand"><img src="assets/prepalarm-icon.png" alt="" width="56" height="56"><div><div class="kicker">Native iOS- &amp; Android-app</div><h3>PrepAlarm</h3></div></div>
+          <div class="pa-alerts" aria-hidden="true">
+            <div class="pa-alert t1"><b>Info</b><span>Code geel: windstoten in jouw regio</span></div>
+            <div class="pa-alert t2"><b>Push</b><span>Stroomstoring: 2.400 aansluitingen bij Thuis</span></div>
+            <div class="pa-alert t3"><b>Alarm</b><span>NL-Alert: ramen en deuren sluiten</span></div>
+          </div>
+        </div>
+        <p>Native app die vroegtijdig waarschuwt voor grote dreigingen rond jou en je gezin, zoals een blackout, extreem weer, overstroming of gevaarlijke stoffen. Actief in 17 Europese landen. Claude beoordeelt incidenten uit meerdere bronnen; vaste regels bepalen het alarmniveau.</p>
+        <div class="pa-stats">
+          <div><strong>70+</strong><span>databronnen</span></div>
+          <div><strong>17</strong><span>landen actief</span></div>
+          <div><strong>2 weken</strong><span>ontwikkeltijd</span></div>
+        </div>
+        <div class="foot">
+          <span class="stack">SwiftUI · Kotlin · Fastify · PostGIS · Claude</span>
+          <a class="link-arrow" href="https://prepalarm.com">prepalarm.com <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- WAAROM -->
+<section class="section" id="waarom">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <div class="eyebrow">Waarom Esitec</div>
+      <h2>Het verschil met een traditioneel bureau</h2>
+      <p class="lead">De expertise van een team, de wendbaarheid van één senior specialist.</p>
+    </div>
+    <div class="compare reveal" role="table" aria-label="Vergelijking traditioneel bureau en Esitec">
+      <div class="compare-row compare-head" role="row">
+        <div role="columnheader">&nbsp;</div>
+        <div role="columnheader">Traditioneel bureau</div>
+        <div role="columnheader"><span class="logo-inv"><img src="logo.png" alt="Esitec"></span></div>
+      </div>
+      <div class="compare-row" role="row">
+        <div role="rowheader">Direct contact</div>
+        <div role="cell"><span class="x" aria-label="Nee"><svg width="10" height="10" viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2l-6 6"/></svg></span>Accountmanager en wisselende developers</div>
+        <div role="cell"><span class="v" aria-label="Ja"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3 3 7-7"/></svg></span>Je spreekt de senior die het bouwt</div>
+      </div>
+      <div class="compare-row" role="row">
+        <div role="rowheader">AI in productie</div>
+        <div role="cell"><span class="x" aria-label="Nee"><svg width="10" height="10" viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2l-6 6"/></svg></span>Demo’s en losse chatbot-plugins</div>
+        <div role="cell"><span class="v" aria-label="Ja"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3 3 7-7"/></svg></span>Agents met vangrails, logging en kostenlimieten</div>
+      </div>
+      <div class="compare-row" role="row">
+        <div role="rowheader">Integraties</div>
+        <div role="cell"><span class="x" aria-label="Nee"><svg width="10" height="10" viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2l-6 6"/></svg></span>Losse koppelingen, vaak uitbesteed</div>
+        <div role="cell"><span class="v" aria-label="Ja"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3 3 7-7"/></svg></span>Eén partij voor app, AI én koppelingen</div>
+      </div>
+      <div class="compare-row" role="row">
+        <div role="rowheader">Kosten</div>
+        <div role="cell"><span class="x" aria-label="Nee"><svg width="10" height="10" viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2l-6 6"/></svg></span>Lange trajecten met veel overhead</div>
+        <div role="cell"><span class="v" aria-label="Ja"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3 3 7-7"/></svg></span><span><strong>25% van de traditionele ontwikkelkosten</strong>, elke week werkende software</span></div>
+      </div>
+      <div class="compare-row" role="row">
+        <div role="rowheader">Eigenaarschap</div>
+        <div role="cell"><span class="x" aria-label="Nee"><svg width="10" height="10" viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2l-6 6"/></svg></span>Lock-in op platform of leverancier</div>
+        <div role="cell"><span class="v" aria-label="Ja"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3 3 7-7"/></svg></span>Jouw code en cloud-accounts, volledig overdraagbaar</div>
+      </div>
+      <div class="compare-row" role="row">
+        <div role="rowheader">Kwaliteit</div>
+        <div role="cell"><span class="x" aria-label="Nee"><svg width="10" height="10" viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2l-6 6"/></svg></span>Wisselend, afhankelijk van wie er beschikbaar is</div>
+        <div role="cell"><span class="v" aria-label="Ja"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3 3 7-7"/></svg></span>Tests, code reviews en documentatie als standaard</div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- STACK -->
+<section class="stack-band" aria-label="Technologieën">
+  <div class="label">Technologie waar ik dagelijks mee werk</div>
+  <div class="marquee-mask">
+    <div class="marquee">
+      <span class="chip hot"><i></i>Anthropic Claude</span><span class="chip"><i></i>TypeScript</span><span class="chip"><i></i>Angular</span><span class="chip"><i></i>React</span><span class="chip"><i></i>Next.js</span><span class="chip"><i></i>Node.js</span><span class="chip hot"><i></i>Claude Code</span><span class="chip"><i></i>.NET · SignalR</span><span class="chip"><i></i>Ionic</span><span class="chip"><i></i>RxJS · NgRx</span><span class="chip"><i></i>Firebase</span>
+      <span class="chip hot" aria-hidden="true"><i></i>Anthropic Claude</span><span class="chip" aria-hidden="true"><i></i>TypeScript</span><span class="chip" aria-hidden="true"><i></i>Angular</span><span class="chip" aria-hidden="true"><i></i>React</span><span class="chip" aria-hidden="true"><i></i>Next.js</span><span class="chip" aria-hidden="true"><i></i>Node.js</span><span class="chip hot" aria-hidden="true"><i></i>Claude Code</span><span class="chip" aria-hidden="true"><i></i>.NET · SignalR</span><span class="chip" aria-hidden="true"><i></i>Ionic</span><span class="chip" aria-hidden="true"><i></i>RxJS · NgRx</span><span class="chip" aria-hidden="true"><i></i>Firebase</span>
+    </div>
+    <div class="marquee">
+      <span class="chip"><i></i>AWS Lambda · S3 · SQS</span><span class="chip"><i></i>Azure DevOps</span><span class="chip hot"><i></i>Mollie</span><span class="chip"><i></i>Pay.nl</span><span class="chip"><i></i>WhatsApp Cloud API</span><span class="chip"><i></i>SwiftUI</span><span class="chip"><i></i>Kotlin</span><span class="chip"><i></i>Expo</span><span class="chip"><i></i>Supabase</span><span class="chip"><i></i>PostGIS</span><span class="chip"><i></i>Sanity</span><span class="chip"><i></i>Vercel</span><span class="chip"><i></i>Docker</span><span class="chip"><i></i>SQL &amp; NoSQL</span>
+      <span class="chip" aria-hidden="true"><i></i>AWS Lambda · S3 · SQS</span><span class="chip" aria-hidden="true"><i></i>Azure DevOps</span><span class="chip hot" aria-hidden="true"><i></i>Mollie</span><span class="chip" aria-hidden="true"><i></i>Pay.nl</span><span class="chip" aria-hidden="true"><i></i>WhatsApp Cloud API</span><span class="chip" aria-hidden="true"><i></i>SwiftUI</span><span class="chip" aria-hidden="true"><i></i>Kotlin</span><span class="chip" aria-hidden="true"><i></i>Expo</span><span class="chip" aria-hidden="true"><i></i>Supabase</span><span class="chip" aria-hidden="true"><i></i>PostGIS</span><span class="chip" aria-hidden="true"><i></i>Sanity</span><span class="chip" aria-hidden="true"><i></i>Vercel</span><span class="chip" aria-hidden="true"><i></i>Docker</span><span class="chip" aria-hidden="true"><i></i>SQL &amp; NoSQL</span>
+    </div>
+  </div>
+</section>
+
+<!-- INZICHTEN -->
+<section class="section insights" id="inzichten">
+  <div class="wrap">
+    <div class="section-foot reveal">
+      <div class="section-head">
+        <div class="eyebrow">Inzichten</div>
+        <h2>Praktische kennis over AI &amp; integraties</h2>
+        <p class="lead">Wat werkt er écht in productie? Eerlijke artikelen uit de praktijk.</p>
+      </div>
+      <a class="btn btn-ghost" href="#inzichten">Alle artikelen</a>
+    </div>
+    <div class="insight-grid">
+      <a class="insight reveal" href="#inzichten">
+        <div class="meta"><span>AI-agents</span><span>Binnenkort</span></div>
+        <h3>Een AI-agent in productie: de vangrails die je niet mag overslaan</h3>
+        <p>Identiteitscontrole, escalatie naar een mens en harde kostenlimieten: lessen uit een WhatsApp-agent op Claude.</p>
+        <span class="link-arrow">Lees meer <span aria-hidden="true">→</span></span>
+      </a>
+      <a class="insight reveal" href="#inzichten" data-d="1">
+        <div class="meta"><span>Betalingen</span><span>Binnenkort</span></div>
+        <h3>Van Pay.nl naar Mollie migreren zonder omzetverlies</h3>
+        <p>Een stappenplan voor een PSP-migratie in een geldkritische boekingsflow: webhooks, idempotentie en testen.</p>
+        <span class="link-arrow">Lees meer <span aria-hidden="true">→</span></span>
+      </a>
+      <a class="insight reveal" href="#inzichten" data-d="2">
+        <div class="meta"><span>AI-first ontwikkelen</span><span>Binnenkort</span></div>
+        <h3>Claude Code als pair programmer: een eerlijke evaluatie</h3>
+        <p>Wat levert AI-first ontwikkelen werkelijk op aan snelheid en kwaliteit? En waar blijft menselijk oordeel onmisbaar?</p>
+        <span class="link-arrow">Lees meer <span aria-hidden="true">→</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / CONTACT -->
+<section class="cta" id="contact">
+  <div class="wrap">
+    <div class="cta-card reveal">
+      <div>
+        <h2>Laten we je systemen slimmer laten samenwerken</h2>
+        <p>Vertel kort waar je tegenaan loopt: een AI-idee, een nieuwe applicatie of systemen die niet met elkaar praten. Je krijgt binnen één werkdag een eerlijk antwoord, met een inschatting van tijd en kosten.</p>
+      </div>
+      <div class="cta-side">
+        <div class="who">
+          <span class="avatar" aria-hidden="true">ES</span>
+          <div><strong>Eugène Spaan</strong><span>Eigenaar Esitec · Nijmegen</span></div>
+        </div>
+        <a class="btn btn-primary email-link" href="#" data-user="info" data-domain="esitec.nl" data-subject="Kennismaking">Plan een kennismaking <span class="arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
+        <a class="mail email-link" href="#" data-user="info" data-domain="esitec.nl">of mail naar info&#64;esitec&#46;nl</a>
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3 3 7-7"/></svg>Vrijblijvend gesprek van 30 minuten</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3 3 7-7"/></svg>Online of op locatie</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3 3 7-7"/></svg>Direct met de specialist</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
 
 <!-- FOOTER -->
-<footer>
-  <div class="footer-logo">
-    <img src="logo.png" alt="Esitec">
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <span class="logo-inv"><img src="logo.png" alt="Esitec"></span>
+        <p>AI-specialist voor professionele webapplicaties, apps en complete integraties tussen systemen, voor 25% van de traditionele ontwikkelkosten.</p>
+      </div>
+      <div>
+        <h4>Diensten</h4>
+        <ul>
+          <li><a href="#diensten">AI-integraties &amp; agents</a></li>
+          <li><a href="#diensten">Webapplicaties &amp; apps</a></li>
+          <li><a href="#diensten">Systeemintegraties</a></li>
+          <li><a href="#diensten">Betaalintegraties</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Esitec</h4>
+        <ul>
+          <li><a href="#aanpak">Aanpak</a></li>
+          <li><a href="#cases">Cases</a></li>
+          <li><a href="#producten">TafelTour &amp; PrepAlarm</a></li>
+          <li><a href="#inzichten">Inzichten</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#" class="email-link" data-user="info" data-domain="esitec.nl">info&#64;esitec&#46;nl</a></li>
+          <li>Nijmegen, Nederland</li>
+          <li>KvK 84734485</li>
+          <li>Btw NL004008604B41</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span><span class="dot"></span>© 2026 Esitec · Eugène Spaan</span>
+      <span><a href="#privacy">Privacybeleid</a> &nbsp;·&nbsp; <a href="#voorwaarden">Algemene voorwaarden</a></span>
+    </div>
   </div>
-  <p>
-    &copy; 2026 Esitec – Eugène Spaan &nbsp;·&nbsp;
-    Nijmegen, Nederland &nbsp;·&nbsp;
-    <a href="#" class="email-link" data-user="info" data-domain="esitec.nl">info&#64;esitec&#46;nl</a>
-  </p>
-  <p style="margin-top:.5rem; font-size:.78rem;">
-    <a href="#privacy">Privacybeleid</a> &nbsp;·&nbsp;
-    <a href="#voorwaarden">Algemene voorwaarden</a>
-  </p>
 </footer>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('.email-link').forEach(function (el) {
-      el.href = 'mailto:' + el.dataset.user + '@' + el.dataset.domain;
-    });
+  // E-mailadressen pas in de browser opbouwen (bescherming tegen scrapers)
+  document.querySelectorAll('.email-link').forEach(function (el) {
+    var subject = el.dataset.subject ? '?subject=' + encodeURIComponent(el.dataset.subject) : '';
+    el.href = 'mailto:' + el.dataset.user + '@' + el.dataset.domain + subject;
   });
-</script>
 
+  // Mobiel menu
+  var toggle = document.querySelector('.menu-toggle');
+  var menu = document.getElementById('mobile-menu');
+  toggle.addEventListener('click', function () {
+    var open = menu.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open);
+    toggle.setAttribute('aria-label', open ? 'Menu sluiten' : 'Menu openen');
+  });
+  menu.addEventListener('click', function (e) {
+    if (e.target.closest('a')) { menu.classList.remove('open'); toggle.setAttribute('aria-expanded', false); }
+  });
+
+  // Elementen laten verschijnen bij scrollen
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: .08 });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+  }
+</script>
 </body>
 </html>
