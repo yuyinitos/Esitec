@@ -343,7 +343,7 @@
     .recent { margin-top: 2.5rem; }
     .recent-head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: .4rem 1rem; margin-bottom: 1rem; }
     .recent-head span { font-size: .88rem; color: var(--muted); }
-    .recent-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; }
+    .recent-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; }
     .recent-item { background: var(--white); padding: 1.35rem 1.4rem 1.4rem; text-decoration: none; display: flex; flex-direction: column; gap: .3rem; transition: background .2s; }
     a.recent-item:hover { background: var(--paper); }
     a.recent-item:hover strong::after { transform: translate(2px, -2px); }
@@ -400,8 +400,32 @@
     .prepalarm .foot { border-color: rgba(255,255,255,.12); position: relative; }
     .prepalarm .stack { color: rgba(255,255,255,.6); }
     .prepalarm .link-arrow { color: #ff9a80; }
+
+    .chandra { grid-column: 1 / -1; background: #130f0c; color: #f5efe6; padding: 0; }
+    .chandra::before { content: ''; position: absolute; inset: 0; background: radial-gradient(120% 90% at 8% 0%, rgba(199,163,106,.22), rgba(199,163,106,0) 60%); pointer-events: none; }
+    .ch-grid { display: grid; grid-template-columns: 1fr 1.12fr; align-items: stretch; position: relative; }
+    .ch-body { padding: clamp(1.6rem, 3.5vw, 2.6rem); display: flex; flex-direction: column; }
+    .ch-brand { display: flex; align-items: center; gap: .85rem; margin-bottom: 1.1rem; }
+    .ch-brand img { border-radius: 13px; }
+    .chandra .kicker { color: #c7a36a; margin-bottom: .15rem; }
+    .chandra h3 { margin-bottom: .75rem; }
+    .chandra p { color: rgba(245,239,230,.76); margin-bottom: 1.4rem; }
+    .chandra .feats li { color: rgba(245,239,230,.82); }
+    .chandra .feats li::before { background: #c7a36a; }
+    .ch-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; margin-bottom: 1.4rem; }
+    .ch-stats div { background: rgba(199,163,106,.09); border: 1px solid rgba(199,163,106,.22); border-radius: 14px; padding: .75rem .85rem; }
+    .ch-stats strong { display: block; font-family: var(--display); font-weight: var(--display-weight); font-size: 1.4rem; line-height: 1.1; }
+    .ch-stats span { display: block; font-size: .78rem; line-height: 1.3; margin-top: .2rem; color: rgba(245,239,230,.62); }
+    .chandra .foot { border-color: rgba(199,163,106,.22); }
+    .chandra .stack { color: rgba(245,239,230,.58); }
+    .chandra .link-arrow { color: #c7a36a; }
+    .ch-shot { position: relative; border-left: 1px solid rgba(199,163,106,.18); display: flex; flex-direction: column; justify-content: center; gap: .85rem; padding: clamp(1rem, 2vw, 1.5rem); background: #0d0a08; }
+    .ch-shot img { display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(199,163,106,.2); box-shadow: 0 22px 44px -20px rgba(0,0,0,.85); }
+    .ch-shot figcaption { font-size: .74rem; letter-spacing: .05em; text-transform: uppercase; color: rgba(245,239,230,.6); }
+
+    @media (max-width: 1100px) { .ch-grid { grid-template-columns: 1fr; } .ch-shot { border-left: 0; border-top: 1px solid rgba(199,163,106,.18); } }
     @media (max-width: 900px) { .product-grid { grid-template-columns: 1fr; } }
-    @media (max-width: 480px) { .feats { grid-template-columns: 1fr; } .pa-stats strong { font-size: 1.15rem; } }
+    @media (max-width: 480px) { .feats { grid-template-columns: 1fr; } .pa-stats strong { font-size: 1.15rem; } .ch-stats strong { font-size: 1.15rem; } }
 
     /* ── Vergelijking ── */
     .compare { border-radius: 24px; overflow: hidden; border: 1px solid var(--line); background: var(--white); box-shadow: var(--shadow); }
@@ -921,12 +945,6 @@
           <span>Toernooibeheer met live scores en een optimalisatie-algoritme dat deelnemers eerlijk over tafels en rondes verdeelt.</span>
           <em>.NET · React · SignalR · SQL Server</em>
         </a>
-        <a class="recent-item" href="https://dichtbijcommunity.nl">
-          <small>Mobiele app · in ontwikkeling</small>
-          <strong>Dichtbij</strong>
-          <span>iOS- en Android-app voor echte ontmoetingen, met beheeromgeving en strikte toegangsregels in de database.</span>
-          <em>Expo · Supabase · Next.js</em>
-        </a>
         <div class="recent-item">
           <small>AI-contentpipeline</small>
           <strong>Quizzixer</strong>
@@ -954,6 +972,42 @@
       <p class="lead">Naast klantwerk bouw en beheer ik eigen side projects. Het beste bewijs dat ik van idee tot werkende software kom, en dat het daarna blijft draaien.</p>
     </div>
     <div class="product-grid">
+      <article class="product chandra reveal">
+        <div class="ch-grid">
+          <div class="ch-body">
+            <div class="ch-brand">
+              <img src="assets/chandra-icoon.png" alt="" width="56" height="56" loading="lazy">
+              <div>
+                <div class="kicker">Audio-app voor koppels · iOS &amp; Android</div>
+                <h3>In bed with Chandra</h3>
+              </div>
+            </div>
+            <p>Eigen product, samen met intimiteitscoach Chandra: begeleide audio-oefeningen van ongeveer dertig minuten, geordend in modules per levensfase. Hier heb ik AI-first bouwen het verst doorgetrokken. Alle code is met Claude Code geschreven, alle stemmen komen uit ElevenLabs met timing per woord, en de huisstijl, de schermen en de website zijn met AI ontworpen. De oefeningen zelf komen van Chandra.</p>
+            <ul class="feats">
+              <li>Drie luistermodi: samen, één oortje of duo</li>
+              <li>Twee telefoons synchroon op aparte sporen</li>
+              <li>Eigen stem en taal per luisteraar</li>
+              <li>Audiokern in Rust voor iOS, Android en web</li>
+              <li>Contentpijplijn van script naar opname</li>
+              <li>Versleuteld, geen trackers of advertenties</li>
+            </ul>
+            <div class="ch-stats">
+              <div><strong>3</strong><span>luistermodi</span></div>
+              <div><strong>4</strong><span>modules per levensfase</span></div>
+              <div><strong>feb 2027</strong><span>in de stores</span></div>
+            </div>
+            <div class="foot">
+              <span class="stack">Expo · Rust · WebAssembly · Supabase · ElevenLabs · Claude Code</span>
+              <a class="link-arrow" href="https://inbedwithchandra.com">inbedwithchandra.com <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+          <figure class="ch-shot">
+            <img src="assets/chandra-home.webp" alt="Homepage van In bed with Chandra met de kop: Intimiteit, met aandacht. Samen, in jullie eigen tempo." width="1280" height="820" loading="lazy">
+            <figcaption>De website, ontworpen en gebouwd met AI</figcaption>
+          </figure>
+        </div>
+      </article>
+
       <article class="product tafeltour reveal">
         <img class="tt-logo" src="assets/tafeltour-logo.webp" alt="TafelTour, Running Diner Experience" width="753" height="368" loading="lazy">
         <div class="kicker">SaaS-platform · live</div>
@@ -1141,7 +1195,7 @@
         <ul>
           <li><a href="#aanpak">Aanpak</a></li>
           <li><a href="#cases">Cases</a></li>
-          <li><a href="#producten">TafelTour &amp; PrepAlarm</a></li>
+          <li><a href="#producten">Chandra, TafelTour &amp; PrepAlarm</a></li>
           <li><a href="#inzichten">Inzichten</a></li>
         </ul>
       </div>
